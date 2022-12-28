@@ -2,3 +2,7 @@ nav{
     background-color: #EB3B3B;
     color: white;
 }
+
+ul li a{
+    color: white;
+}
