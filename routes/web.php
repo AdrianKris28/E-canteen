@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +27,15 @@ Route::post('/logoutAccount', [PageController::class, 'logoutAccount']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Payment Method
+Route::get('/payment-method', [PaymentMethodController::class, 'paymentMethod']);
+
+//Account
+Route::get('/account', [AccountController::class, 'account']);
+
+//Incoming Order
+Route::get('/incoming-order', [OrderController::class, 'incomingOrder'])->name('incomingOrder');
+
+//Accepted Order
+Route::get('/accepted-order', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');

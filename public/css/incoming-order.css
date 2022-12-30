@@ -1,0 +1,83 @@
+main{
+    /* margin-top: 20px;
+    margin-left: 26px;
+    margin-right: 22px; */
+    padding-top: 2.09vh;
+    margin-left: 1.35vw;
+    margin-right: 1.15vw;
+}
+
+.order-group{
+    display: flex;
+    justify-content: space-around;
+    width: 380px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+#incoming-btn, #accepted-btn{
+    width: 153px;
+    height: 33px;
+    font-size: 12px;
+    font-weight: 600;
+    /* background-color: #EB3B3B; */
+    background-color: #D8D8D8;
+    outline: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    color: #000000;
+}
+
+#incoming-btn{
+    background-color: #EB3B3B;
+    color: #FFFFFF;
+}
+
+.order-card{
+    width: 380px;
+    padding-top: 7px;
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-bottom: 22px;
+    border: 1px solid #000000;
+    border-radius: 7px;
+    margin: auto;
+    margin-bottom: 17px;
+}
+
+.order-header{
+    margin-bottom: 12px;
+    color: #000000;
+    display: flex;
+    justify-content: space-between;
+    background-color: none;
+}
+
+.order-header h6{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#order-detail tr td{
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.table-head{
+    border-bottom: 1px solid black;
+}
+
+.table-total{
+    border-top: 1px solid black;
+}
+
+#accept-btn{
+    width: 322px;
+    height: 33px;
+    background-color: #1400FF;
+    color: #FFFFFF;
+    border-radius: 10px;
+    margin: 0px 16px 0px 16px;
+    font-size: 12px;
+    font-weight: 600;
+}
