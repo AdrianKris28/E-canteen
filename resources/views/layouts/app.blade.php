@@ -21,12 +21,18 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="max-width: 428px">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="padding-top: 54px">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}" style="color: white">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+            
+                    <a class="navbar-brand" href="{{ url('/') }}" style="color: white">
+                        <h4>E-Canteen</h4>
+                    </a>
+
+                    {{-- <a class="navbar-brand" style="color: white">
+                        @yield('navbarTitle')
+                    </a> --}}
+                  
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -53,6 +59,9 @@
                                 </li>
                             @endif
                         @else
+                        
+                            {{-- If user == buyer --}}
+
                             <li class="nav-item dropdown">
                                 <a class="dropdown-item" href="#">Home</a>
                                 <a class="dropdown-item" href="#">Cart</a>
@@ -76,7 +85,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="max-width: 428px">
             @yield('content')
         </main>
     </div>

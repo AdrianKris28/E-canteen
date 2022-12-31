@@ -16,11 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::post('/logoutAccount', [PageController::class, 'logoutAccount']);
+Route::get('/menuSeller', [PageController::class, 'menuSeller']);
+Route::get('/menuDetailSeller', [PageController::class, 'menuDetailSeller']);
+Route::post('/editMenu', [PageController::class, 'editMenu']);
 
+Route::get('/addNewProductSeller', [PageController::class, 'addNewProductSeller']);
+Route::post('/addProduct', [PageController::class, 'addProduct']);
+
+Route::get('/salesSeller', [PageController::class, 'salesSeller']);
+Route::get('/transactionHistorySeller', [PageController::class, 'transactionHistorySeller']);
+Route::get('/transactionHistoryDetailSeller', [PageController::class, 'transactionHistoryDetailSeller']);
+Route::get('/transactionHistoryBuyer', [PageController::class, 'transactionHistoryBuyer']);
+Route::get('/transactionHistoryDetailBuyer', [PageController::class, 'transactionHistoryDetailBuyer']);
+
+Route::post('/logoutAccount', [PageController::class, 'logoutAccount']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
