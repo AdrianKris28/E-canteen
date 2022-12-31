@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
 @endsection
 
-@section('title','Payment Method')
 
 @section('content')
     <form action="" id="payment-method-form">

@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/account.css') }}">
 @endsection
 
-@section('title','Account')
 
 @section('content')
     

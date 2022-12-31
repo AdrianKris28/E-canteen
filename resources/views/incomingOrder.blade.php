@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/incoming-order.css') }}">
 @endsection
 
-@section('title','Incoming Order')
 
 @section('content')
     <div class="order-group">

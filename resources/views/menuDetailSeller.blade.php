@@ -35,8 +35,8 @@
                 <h2 style="margin-left: 10px">Rp. <input type="number" name="price" style="border: 0" value="1000" min="1"></h2>
             </div>
            
-                <textarea name="description" id="description" cols="30" rows="5" style="margin-left: 9px;border: 0">Menu Description</textarea>
-            
+            <textarea name="description" id="description" cols="30" rows="5" style="margin-left: 9px;border: 0">Menu Description</textarea>
+             <input id="image" type="file" accept=".png, .jpeg, .jpg" class="form-control @error('image') is-invalid @enderror" name="image" required autocomplete="image" style="border: none">
         </div>
         
         <div style="text-align: center;margin-top: 100px">
