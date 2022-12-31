@@ -1,0 +1,100 @@
+main{
+    /* background-color: #FFFFFF; */
+    /* margin-top: 52px;
+    margin-left: 31px;
+    margin-right: 44px; */
+    margin-top: 5.44vh;
+    margin-left: 1.61vw;
+    margin-right: 2.29vw;
+}
+
+.buyer-greet{
+    width: 353px;
+    font-size: 30px;
+    font-weight: 600;
+    margin: auto;
+    margin-bottom: 52px;
+}
+
+#account-form{
+    width: 353px;
+    margin: auto;
+    margin-bottom: 190px;
+}
+
+.input{
+    margin-bottom: 21px;
+}
+
+#account-form label{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+#account-form input{
+    font-weight: 500;
+    font-size: 18px;
+    background-color: #F1F1F1;
+    border-radius: 10px;
+    border: none;
+}
+
+#save-btn{
+    width: 124px;
+    height: 50px;
+    background-color: #EB3B3B;
+    border: none;
+    border-radius: 48px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 26px;
+}
+
+#logout-btn{
+    width: 182px;
+    height: 50px;
+    background-color: #1400FF;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.seller-greet{
+    width: 353px;
+    display: flex;
+    margin: auto;
+    margin-bottom: 57px;
+}
+
+.seller-greet img{
+    width: 109px;
+    height: 112px;
+    border-radius: 10px; 
+}
+
+.seller-greet .seller-profile{
+    margin-left: 28px;  
+}
+
+.seller-greet .seller-profile .seller-name{
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.seller-greet .seller-profile #upload-btn{
+    width: 150px;
+    height: 33px;
+    background-color: #EB3B3B;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;;
+    color: #FFFFFF;
+}
