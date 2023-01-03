@@ -15,6 +15,11 @@ class CreateTransactionTable extends Migration
     {
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('buyerId')->references('id')->on('buyer')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('paymentMethodId')->references('id')->on('payment')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('flag')->length(1);
+            $table->string('orderType', 10)->nullable(true);
+            $table->date('transactionDate');
             $table->timestamps();
         });
     }

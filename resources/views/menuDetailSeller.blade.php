@@ -24,7 +24,7 @@
 </head>
 <body>
         
-     <form action="/editMenu" method="post">
+     <form action="/editMenu" method="POST" enctype="multipart/form-data">
         @csrf
         {{-- @foreach ($collection as $item) --}}
         <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" style="width: 100%;height: 300px" alt="Gambar">

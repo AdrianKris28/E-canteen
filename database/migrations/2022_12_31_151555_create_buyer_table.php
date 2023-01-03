@@ -15,6 +15,7 @@ class CreateBuyerTable extends Migration
     {
         Schema::create('buyer', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('userId')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

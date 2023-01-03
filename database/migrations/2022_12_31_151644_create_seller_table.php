@@ -15,6 +15,8 @@ class CreateSellerTable extends Migration
     {
         Schema::create('seller', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('userId')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('QRimage')->nullable(true);
             $table->timestamps();
         });
     }
