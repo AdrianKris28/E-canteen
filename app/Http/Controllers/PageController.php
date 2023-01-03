@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+
     public function logoutAccount(Request $req)
     {
         Auth::logout();
@@ -26,10 +27,22 @@ class PageController extends Controller
         return view('menuDetailSeller');
     }
 
+    public function menuDetailBuyer()
+    {
+
+        return view('menuDetailBuyer');
+    }
+
     public function editMenu(Request $req)
     {
 
         return redirect('/menuSeller');
+    }
+
+    public function cartBuyer(Request $req)
+    {
+
+        return view('/cartBuyer');
     }
 
 
@@ -94,5 +107,10 @@ class PageController extends Controller
     public function transactionHistoryDetailBuyer()
     {
         return view('transactionHistoryDetailBuyer');
+    }
+
+    public function insideOutlet()
+    {
+        return view('insideOutlet');
     }
 }
