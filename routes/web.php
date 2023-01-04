@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::get('/menuSeller', [PageController::class, 'menuSeller']);
 Route::get('/menuDetailSeller', [PageController::class, 'menuDetailSeller']);

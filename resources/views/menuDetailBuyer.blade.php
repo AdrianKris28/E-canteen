@@ -34,7 +34,7 @@
                 <h2 style="margin-left: 9px">Menu Name</h2>
                 <h2 style="margin-left: 10px">Rp. Price</h2>
             </div>
-            <p>Description</p>
+            <p style="margin-left: 10px">Description</p>
         </div>
         
         <div style="text-align: center;margin-top: 100px">

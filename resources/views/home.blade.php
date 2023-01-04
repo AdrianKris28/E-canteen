@@ -11,7 +11,7 @@
 @section('content')
 
 
-{{-- @if(Auth::check()) --}}
+@if(Auth::check())
 <div class="container">
     <div class="input-group">
         <div class="form-outline">
@@ -50,6 +50,6 @@
         </div>
     </div>
 </div>
-{{-- @endif --}}
+@endif
 
 @endsection
