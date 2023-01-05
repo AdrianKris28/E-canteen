@@ -76,13 +76,13 @@
                                 @else
 
                                 <a class="dropdown-item" href="/menuSeller">Menu</a>
-                                <a class="dropdown-item" href="#">Incoming Order</a>
+                                <a class="dropdown-item" href="/incoming-order">Incoming Order</a>
                                 <a class="dropdown-item" href="salesSeller">Sales</a>
                                 <a class="dropdown-item" href="/transactionHistorySeller">History</a>
 
                                 @endif
 
-                                <a class="dropdown-item" href="#">Account</a>
+                                <a class="dropdown-item" href="/account">Account</a>
                                 <a class="dropdown-item"  href="#"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

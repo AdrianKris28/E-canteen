@@ -19,7 +19,6 @@ class CreateTransactionTable extends Migration
             $table->foreignId('paymentMethodId')->references('id')->on('payment')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('flag')->length(1);
             $table->string('orderType', 10)->nullable(true);
-            $table->integer('tableNumber')->nullable(true)->length(5);
             $table->date('transactionDate');
             $table->timestamps();
         });

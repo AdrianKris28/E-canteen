@@ -30,6 +30,8 @@
     </form> --}}
 
     {{-- Seller --}}
+
+    @if(Auth::user()->role == 'Seller')
     <div class="seller-greet">
         <img src="" alt="#" id="seller-img">
         <div class="seller-profile">
@@ -60,4 +62,6 @@
     <form action="" id="logout-form">
         <button type="submit" class="btn" id="logout-btn">Logout</button>
     </form>
+
+    @endif
 @endsection

@@ -23,11 +23,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
-Route::get('/{id}', [PageController::class, 'home']);
+Route::get('/', [PageController::class, 'home']);
 
 Route::get('/menuSeller', [PageController::class, 'menuSeller']);
 Route::get('/menuDetailSeller/{id}', [PageController::class, 'menuDetailSeller']);
 
+Route::get('/searchOutlet', [PageController::class, 'searchOutlet']);
 Route::get('/searchProduct', [PageController::class, 'searchProduct']);
 
 Route::get('/deleteMenu/{id}', [PageController::class, 'deleteMenu']);

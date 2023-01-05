@@ -14,10 +14,15 @@ class PageController extends Controller
 
     public function home()
     {
-        $data = User::where('role', '=', 'Seller')->get();
+        $outlet = User::where('role', '=', 'Seller')->get();
 
-        // dd($data);
-        return view('home', compact('data'));
+        // User::where('id', '=', Auth::user()->id)
+        //     ->update([
+        //         'tableNumber' => $id,
+        //     ]);
+
+        // dd($outlet);
+        return view('home', compact('outlet'));
     }
 
 
@@ -35,10 +40,19 @@ class PageController extends Controller
         return view('menuSeller', compact('product'));
     }
 
+    public function searchOutlet(Request $req)
+    {
+        $query = $req['query'];
+
+        $outlet = User::where('user.name', 'LIKE', "%$query%")->where('role', '=', 'Seller')->get();
+
+        return view('home', compact('outlet'));
+    }
+
     public function searchProduct(Request $req)
     {
         $query = $req['query'];
-        $category = $req['category'];
+
         $product = Product::where('product.name', 'LIKE', "%$query%")->get();
 
         return view('menuSeller', compact('product'));
