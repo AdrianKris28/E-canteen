@@ -8,11 +8,13 @@
 <div class="container">
 
     <div class="row justify-content-center">
-       <h2>Outlet Name</h2>
-            <form action="#" method="get" style="margin-top: 20px">
+      
+            <form action="/searchProduct" method="get" style="margin-top: 20px">
+
+                 <h2> <a href="/menuSeller" style="color: black">{{Auth::user()->name}}</a></h2>
                     <table>
                         <td>
-                            <input type="text" class="form-control" placeholder="Search.." name="query">
+                            <input type="text" class="form-control" placeholder="Search..." name="query">
                         </td>
 
                         <td>
@@ -28,30 +30,29 @@
 
         <table class="table" style="width: 300px;margin-top: 20px">
 
-                    {{-- @forelse ($data as $dt) --}}
+                    @forelse ($product as $pd)
                      
                         <tr>
-                            <td ><img src="#" alt="Gambar"></td>
-                            <td>Food Name <br>
-                                Rp.
+                            <td ><img src="{{ Storage::url($pd->image) }}" style="width: 80.91px;height: 80.91px;border-radius: 10px" alt="Gambar"></td>
+                            <td>{{$pd->name}} <br>
+                                Rp. {{$pd->price}}
                             </td>
                             <td>
-                                Stock x pcs
+                               {{$pd->stock}} pcs
                             </td>
                             <td>
-                                <a href="/menuDetailSeller" class="btn btn-primary">View</a>
-                                <a href="#" class="btn btn-danger">Delete</a></td>
+                                <a href="/menuDetailSeller/{{$pd->id}}" class="btn btn-primary">View</a>
+                                <a href="/deleteMenu/{{$pd->id}}" class="btn btn-danger">Delete</a></td>
 
                         </tr> 
                     
-                    {{-- @empty
-                    <td id="datanotfound" colspan="8">No Book Has Been Added</td>
-                    @endforelse --}}
+                    @empty
+                    <td id="datanotfound" style="text-align: center">No Product Has Been Added</td>
+                    @endforelse
             
         </table>
     
     </div>
-
 
 </div>
 

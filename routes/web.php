@@ -19,12 +19,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+Route::get('/{id}', [PageController::class, 'home']);
 
 Route::get('/menuSeller', [PageController::class, 'menuSeller']);
-Route::get('/menuDetailSeller', [PageController::class, 'menuDetailSeller']);
+Route::get('/menuDetailSeller/{id}', [PageController::class, 'menuDetailSeller']);
+
+Route::get('/searchProduct', [PageController::class, 'searchProduct']);
+
+Route::get('/deleteMenu/{id}', [PageController::class, 'deleteMenu']);
+
 Route::get('/menuDetailBuyer', [PageController::class, 'menuDetailBuyer']);
 Route::post('/editMenu', [PageController::class, 'editMenu']);
 

@@ -65,12 +65,24 @@
                         
                             {{-- If user == buyer --}}
 
+                           
                             <li class="nav-item dropdown">
-                                <a class="dropdown-item" href="#">Home</a>
+
+                                <a class="dropdown-item" href="/">Home</a>
+                                @if(Auth::user()->role == 'Buyer')
                                 <a class="dropdown-item" href="#">Cart</a>
-                                <a class="dropdown-item" href="#">History</a>
+                                <a class="dropdown-item" href="/transactionHistoryBuyer">History</a>
+                                
+                                @else
+
+                                <a class="dropdown-item" href="/menuSeller">Menu</a>
+                                <a class="dropdown-item" href="#">Incoming Order</a>
+                                <a class="dropdown-item" href="salesSeller">Sales</a>
+                                <a class="dropdown-item" href="/transactionHistorySeller">History</a>
+
+                                @endif
+
                                 <a class="dropdown-item" href="#">Account</a>
-                        
                                 <a class="dropdown-item"  href="#"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

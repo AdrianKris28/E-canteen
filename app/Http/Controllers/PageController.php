@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
+
+    public function home()
+    {
+        $data = User::where('role', '=', 'Seller')->get();
+
+        // dd($data);
+        return view('home', compact('data'));
+    }
+
 
     public function logoutAccount(Request $req)
     {
@@ -17,14 +30,24 @@ class PageController extends Controller
 
     public function menuSeller()
     {
-
-        return view('menuSeller');
+        $product = Product::where('sellerId', '=', Auth::user()->id)->get();
+        // dd($product);
+        return view('menuSeller', compact('product'));
     }
 
-    public function menuDetailSeller()
+    public function searchProduct(Request $req)
     {
+        $query = $req['query'];
+        $category = $req['category'];
+        $product = Product::where('product.name', 'LIKE', "%$query%")->get();
 
-        return view('menuDetailSeller');
+        return view('menuSeller', compact('product'));
+    }
+
+    public function menuDetailSeller($id)
+    {
+        $product = Product::where('id', '=', $id)->get();
+        return view('menuDetailSeller', compact('product'));
     }
 
     public function menuDetailBuyer()
@@ -35,7 +58,41 @@ class PageController extends Controller
 
     public function editMenu(Request $req)
     {
+        // dd($req);
 
+        $imageLocation = $req['imageOld'];
+
+        $validatedData = $req->validate([
+            'name' => ['required', 'string', 'min:5', 'max:25'],
+            'description' => ['required', 'string', 'min:10', 'max:100'],
+            'price' => ['required', 'integer', 'gte:1000', 'lte:1000000'],
+            'stock' => ['required', 'integer', 'gte:1'],
+            'image' => ['file'],
+        ]);
+
+        if ($req->file('image') != null) {
+            $image = $req->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageLocation = 'images/' . $imageName;
+            Storage::putFileAs('public/images', $image, $imageName);
+        }
+
+        Product::where('product.id', '=', $req['productId'])
+            ->update([
+                'sellerId' => Auth::user()->id,
+                'name' => $validatedData['name'],
+                'description' => $validatedData['description'],
+                'price' => $validatedData['price'],
+                'stock' => $validatedData['stock'],
+                'image' => $imageLocation,
+            ]);
+
+        return redirect('/menuSeller');
+    }
+
+    public function deleteMenu($id)
+    {
+        Product::where('id', '=', $id)->delete();
         return redirect('/menuSeller');
     }
 
@@ -48,9 +105,9 @@ class PageController extends Controller
 
     public function addNewProductSeller()
     {
-
         return view('addNewProductSeller');
     }
+
 
     public function addProduct(Request $req)
     {
@@ -58,26 +115,26 @@ class PageController extends Controller
         $validatedData = $req->validate([
             'name' => ['required', 'string', 'min:5', 'max:25'],
             'description' => ['required', 'string', 'min:10', 'max:100'],
-            'price' => ['required', 'integer', 'gte:1000', 'lte:10000000'],
+            'price' => ['required', 'integer', 'gte:1000', 'lte:1000000'],
             'stock' => ['required', 'integer', 'gte:1'],
             'image' => ['required', 'file'],
         ]);
 
         //Connect storage
-        // php artisan storage::link
+        // php artisan storage:link
 
-        // $image = $req->file('image');
-        // $imageName = time() . '.' . $image->getClientOriginalExtension();
-        // $imageLocation = 'images/' . $imageName;
-        // Storage::putFileAs('public/images', $image, $imageName);
-        // Product::create([
-        //     'category' => $validatedData['category'],
-        //     'title' => $validatedData['title'],
-        //     'description' => $validatedData['description'],
-        //     'price' => $validatedData['price'],
-        //     'stock' => $validatedData['stock'],
-        //     'image' => $imageLocation,
-        // ]);
+        $image = $req->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $imageLocation = 'images/' . $imageName;
+        Storage::putFileAs('public/images', $image, $imageName);
+        Product::create([
+            'sellerId' => Auth::user()->id,
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'price' => $validatedData['price'],
+            'stock' => $validatedData['stock'],
+            'image' => $imageLocation,
+        ]);
 
         return redirect('/menuSeller');
     }

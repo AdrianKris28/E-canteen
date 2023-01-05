@@ -26,25 +26,35 @@
         
      <form action="/editMenu" method="POST" enctype="multipart/form-data">
         @csrf
-        {{-- @foreach ($collection as $item) --}}
-        <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" style="width: 100%;height: 300px" alt="Gambar">
+        @foreach ($product as $pd)
+
+        <input type="hidden" name="productId" value="{{$pd->id}}">
+        <input type="hidden" name="imageOld" value="{{$pd->image}}">
+
+        <img src="{{ Storage::url($pd->image)}}" style="width: 100%;height: 300px" alt="Gambar">
             
         <div style="margin-top: 30px">
             <div>
-                <h2 style="margin-left: 9px"><input type="text" name="menu" style="border: 0" value="Menu Name"></h2>
-                <h2 style="margin-left: 10px">Rp. <input type="number" name="price" style="border: 0" value="1000" min="1"></h2>
+                <h2 style="margin-left: 9px"><input type="text" name="name" style="border: 0" value="{{$pd->name}}"></h2>
+                <h2 style="margin-left: 10px">Rp. <input type="number" name="price" style="border: 0" value="{{$pd->price}}" min="1"></h2>
             </div>
            
-            <textarea name="description" id="description" cols="30" rows="5" style="margin-left: 9px;border: 0">Menu Description</textarea>
-             <input id="image" type="file" accept=".png, .jpeg, .jpg" class="form-control @error('image') is-invalid @enderror" name="image" required autocomplete="image" style="border: none">
+            <textarea name="description" id="description" cols="30" rows="5" style="margin-left: 9px;border: 0" value="{{$pd->description}}">{{$pd->description}}</textarea>
+          
+            <input id="image" type="file" accept=".png, .jpeg, .jpg" class="form-control @error('image') is-invalid @enderror" name="image" style="border: none">
+             
         </div>
+
+
         
         <div style="text-align: center;margin-top: 100px">
-            <label for="quantity"><h5>Quantity:</h5></label>
-            <input type="number" name="quantity" id="quantity" value="0" style="width:50px;text-align: center;border: 0" min="1">
+            <label for="stock"><h5>Quantity:</h5></label>
+            <input type="number" name="stock" id="stock" value="{{$pd->stock}}" style="width:50px;text-align: center;border: 0" min="1">
         </div>
+
+      
             
-        {{-- @endforeach --}}
+        @endforeach
 
         <button type="submit" class="btn btn-primary" style="display: flex;margin: auto;padding: 10px 40px 10px 40px;margin-top: 20px">Edit</button>
                 

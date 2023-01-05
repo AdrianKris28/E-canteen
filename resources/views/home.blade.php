@@ -13,6 +13,8 @@
 
 @if(Auth::check())
 <div class="container">
+
+  @if(Auth::user()->role == 'Buyer')
     <div class="input-group">
         <div class="form-outline">
           <input type="search" id="form1" class="form-control" />
@@ -49,6 +51,11 @@
             </div>
         </div>
     </div>
+        
+    @else
+        <h2>Ini Menu Seller</h2>
+    @endif
+
 </div>
 @endif
 
