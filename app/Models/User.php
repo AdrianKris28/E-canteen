@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'QRimage',
+        'role'
     ];
 
     /**
@@ -43,13 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function seller()
+    public function transaction()
     {
-        return $this->hasMany(Seller::class);
+        return $this->hasMany(Transaction::class);
     }
 
-    public function buyer()
+    public function product()
     {
-        return $this->hasMany(Buyer::class);
+        return $this->hasMany(Product::class);
     }
 }

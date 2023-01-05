@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'product';
+    // protected $guarded = [];
     protected $fillable = [
         'sellerId',
         'name',
@@ -18,9 +19,9 @@ class Product extends Model
         'image'
     ];
 
-    public function seller()
+    public function user()
     {
-        return $this->belongsTo(Seller::class);
+        return $this->belongsTo(User::class);
     }
 
     public function transactiondetail()

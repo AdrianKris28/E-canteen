@@ -14,12 +14,13 @@ class Transaction extends Model
         'paymentMethodId',
         'flag',
         'orderType',
+        'tableNumber',
         'transactionDate'
     ];
 
-    public function buyer()
+    public function user()
     {
-        return $this->belongsTo(Buyer::class);
+        return $this->belongsTo(User::class);
     }
 
     public function payment()
