@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
-Route::get('/', [PageController::class, 'home']);
+Route::get('/', [PageController::class, 'homepage']);
+// Route::get('/{id}', [PageController::class, 'home']);
 
 Route::get('/menuSeller', [PageController::class, 'menuSeller']);
 Route::get('/menuDetailSeller/{id}', [PageController::class, 'menuDetailSeller']);
@@ -52,14 +53,17 @@ Auth::routes();
 //Home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+
 //Inside Outlet
-Route::get('/insideOutlet', [PageController::class, 'insideOutlet']);
+Route::get('/insideOutlet/{id}', [PageController::class, 'insideOutlet']);
 
 //Payment Method
 Route::get('/payment-method', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');
 
 //Account
 Route::get('/account', [AccountController::class, 'account'])->name('account');
+Route::post('/editProfile', [AccountController::class, 'editProfile']);
 
 //Incoming Order
 Route::get('/incoming-order', [OrderController::class, 'incomingOrder'])->name('incomingOrder');

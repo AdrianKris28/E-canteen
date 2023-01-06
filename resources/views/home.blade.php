@@ -13,77 +13,93 @@
 
 @if(Auth::check())
 <div class="container">
-  
-  @if(Auth::user()->role == 'Buyer')
-      <form action="/searchOutlet" method="get" style="margin-top: 20px">
-            <table>
-                <td>
-                    <input type="text" class="form-control" placeholder="Search..." name="query">
-                </td>
+   <div class="row justify-content-center">
+        @if(Auth::user()->role == 'Buyer')
+            <form action="/searchOutlet" method="get" style="margin-top: 20px">
+                  <table>
+                      <td>
+                          <input type="text" class="form-control" placeholder="Search..." name="query">
+                      </td>
 
-                <td>
-                <button type="submit" class="btn btn-success" >
-                    Search
-                </button>
-                </td>
+                      <td>
+                      <button type="submit" class="btn btn-success" >
+                          Search
+                      </button>
+                      </td>
+                  
+                  </table>
+              </form>
+          
+          {{-- <div class="cardgroup row col">
             
-            </table>
-        </form>
-    
-    <div class="cardgroup row col">
-      
-        <div class="card" style="width: 100px;">
-            <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h6 class="card-title">Kantin 1</h6>
-            </div>
-        </div>
-        <div class="card" style="width: 100px;">
-            <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h6 class="card-title">Kantin 2</h6>
-            </div>
-        </div>
-        <div class="card" style="width: 100px;">
-            <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h6 class="card-title">Kantin 3</h6>
-            </div>
-        </div>
-        <div class="card" style="width: 100px;">
-            <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h6 class="card-title">Kantin 4</h6>
-            </div>
-        </div>
-      </div>
+              <div class="card" style="width: 100px;">
+                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h6 class="card-title">Kantin 1</h6>
+                  </div>
+              </div>
+              <div class="card" style="width: 100px;">
+                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h6 class="card-title">Kantin 2</h6>
+                  </div>
+              </div>
+              <div class="card" style="width: 100px;">
+                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h6 class="card-title">Kantin 3</h6>
+                  </div>
+              </div>
+              <div class="card" style="width: 100px;">
+                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h6 class="card-title">Kantin 4</h6>
+                  </div>
+              </div>
+            </div> --}}
 
-   </div>
-    @else
-      
-    {{-- Ini Menu Seller --}}
+              <div class="outletContainer" style="display: grid; grid-template-columns: repeat(3, 1fr);margin-top: 20px">
 
-    <table class="table" style="text-align: center">
-      <tr>
-        <td><a href="/menuSeller">Menu</a></td>
-      
-      <td><a href="/incoming-order">Incoming Order</a></td>
-      </tr>
-
-       <tr>
-        <td><a href="/salesSeller">Sales</a></td>
-      
-        <td><a href="/transactionHistorySeller">History</a></td>
-      </tr>
-      
-    <tr>
-      <td><a href="/account">Account</a></td>
-    </tr>
-    </table>
-    @endif
+                  @forelse ($outlet as $ot)
+                      <a href="/insideOutlet/{{$ot->id}}" style="color: black">
+                          <div style="padding: 10px">
+                              <img src="{{ Storage::url($ot->image) }}" alt="No Image" width="100px" height="100px" style="border-radius: 10px"><br>
+                              <h5 style="padding:0; margin:10px"> {{$ot->name}} </h5>
+                            
+                          </div>
+                      </a>
+                  @empty
+              </div>
+                      <p style="margin-top: 30px"> There is no outlet yet </p>
+                  @endforelse
 
 
-</div>
+       
+        @else
+          
+        {{-- Ini Menu Seller --}}
+
+        <table class="table" style="text-align: center">
+          <tr>
+            <td><a href="/menuSeller">Menu</a></td>
+          
+          <td><a href="/incoming-order">Incoming Order</a></td>
+          </tr>
+
+          <tr>
+            <td><a href="/salesSeller">Sales</a></td>
+          
+            <td><a href="/transactionHistorySeller">History</a></td>
+          </tr>
+          
+        <tr>
+          <td><a href="/account">Account</a></td>
+        </tr>
+        </table>
+        @endif
+
+    </div>
+  </div>
 @endif
 
 @endsection

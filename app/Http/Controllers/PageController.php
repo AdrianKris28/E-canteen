@@ -12,25 +12,34 @@ use Illuminate\Support\Facades\Storage;
 class PageController extends Controller
 {
 
-    public function home()
+    public function homepage()
     {
         $outlet = User::where('role', '=', 'Seller')->get();
-
-        // User::where('id', '=', Auth::user()->id)
-        //     ->update([
-        //         'tableNumber' => $id,
-        //     ]);
 
         // dd($outlet);
         return view('home', compact('outlet'));
     }
+
+    // public function home($id)
+    // {
+    //     $outlet = User::where('role', '=', 'Seller')->get();
+
+    //     if (Auth::check()) {
+    //         User::where('id', '=', Auth::user()->id)
+    //             ->update([
+    //                 'tableNumber' => $id,
+    //             ]);
+    //     }
+    //     // dd($outlet);
+    //     return view('home', compact('outlet'));
+    // }
 
 
     public function logoutAccount(Request $req)
     {
         Auth::logout();
 
-        return view('auth.login');
+        return redirect('/');
     }
 
     public function menuSeller()
@@ -44,7 +53,7 @@ class PageController extends Controller
     {
         $query = $req['query'];
 
-        $outlet = User::where('user.name', 'LIKE', "%$query%")->where('role', '=', 'Seller')->get();
+        $outlet = User::where('name', 'LIKE', "%$query%")->where('role', '=', 'Seller')->get();
 
         return view('home', compact('outlet'));
     }
@@ -180,8 +189,9 @@ class PageController extends Controller
         return view('transactionHistoryDetailBuyer');
     }
 
-    public function insideOutlet()
+    public function insideOutlet($id)
     {
-        return view('insideOutlet');
+        $product = Product::where('sellerId', '=', $id)->get();
+        return view('insideOutlet', compact('product'));
     }
 }

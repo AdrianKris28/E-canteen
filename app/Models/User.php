@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'tableNumber',
+        'image',
         'QRimage',
         'role'
     ];
