@@ -1,0 +1,42 @@
+main{
+    background-color: #fff;
+}
+
+.pb-4, .py-4 {
+    padding-top: 0 !important;
+}
+
+img{
+    height: 318px;
+}
+
+#description{
+    font-weight: 500;
+    font-size: 14px;
+    width: 100%;
+}
+
+.menu-detail-group{
+    padding-left: 20px; 
+    padding-right: 20px; 
+}
+
+.menu-detail-group p {
+    font-weight: 500;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.menu-detail-group .price{
+    font-size: 28px;
+}
+
+.menu-detail-group p .price{
+    width: 200px;
+}
+
+.cart-qty{
+    font-weight: 600;
+    font-size: 24px;
+}
+
