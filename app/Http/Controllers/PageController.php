@@ -67,6 +67,15 @@ class PageController extends Controller
         return view('menuSeller', compact('product'));
     }
 
+    public function searchProductOutlet(Request $req)
+    {
+        $query = $req['query'];
+
+        $product = Product::where('product.name', 'LIKE', "%$query%")->get();
+
+        return view('insideOutlet', compact('product'));
+    }
+
     public function menuDetailSeller($id)
     {
         $product = Product::where('id', '=', $id)->get();
@@ -192,6 +201,13 @@ class PageController extends Controller
     public function insideOutlet($id)
     {
         $product = Product::where('sellerId', '=', $id)->get();
+
+        // $outlet = Product::join('users', 'product.sellerId', '=', 'users.id')
+        //     ->where('sellerId', '=', $id)->get();
+
+        // $outlet = User::where('id', '=', $id)->get();
+
+        // dd($product);
         return view('insideOutlet', compact('product'));
     }
 }

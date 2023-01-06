@@ -7,11 +7,12 @@
 @section('content')
 <div class="container">
 
+    <a href="/menuSeller"><h2 style="color: black;text-align: center"> {{Auth::user()->name}}</h2></a>
+    
     <div class="row justify-content-center">
       
             <form action="/searchProduct" method="get" style="margin-top: 20px">
 
-                 <h2> <a href="/menuSeller" style="color: black">{{Auth::user()->name}}</a></h2>
                     <table>
                         <td>
                             <input type="text" class="form-control" placeholder="Search..." name="query">

@@ -32,6 +32,7 @@ Route::get('/menuDetailSeller/{id}', [PageController::class, 'menuDetailSeller']
 
 Route::get('/searchOutlet', [PageController::class, 'searchOutlet']);
 Route::get('/searchProduct', [PageController::class, 'searchProduct']);
+Route::get('/searchProductOutlet', [PageController::class, 'searchProductOutlet']);
 
 Route::get('/deleteMenu/{id}', [PageController::class, 'deleteMenu']);
 
