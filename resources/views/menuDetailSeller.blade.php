@@ -44,7 +44,7 @@
             
         @endforeach
 
-        <button type="submit" class="btn btn-primary" style="display: flex;margin: auto;padding: 10px 40px 10px 40px;margin-top: 20px">Edit</button>
+        <button type="submit" class="btn" id="edit-btn" style="display: flex;margin: auto;padding: 10px 40px 10px 40px;margin-top: 20px">Edit</button>
                 
     </form>
 

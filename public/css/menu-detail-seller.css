@@ -40,3 +40,16 @@ img{
     font-size: 24px;
 }
 
+form #edit-btn{
+    width: 293px;
+    height: 55px;
+    background: #EB3B3B;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
