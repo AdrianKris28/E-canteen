@@ -1,0 +1,44 @@
+.email, .password{
+    margin-bottom: 26px;
+}
+
+.remember{
+    margin-bottom: 52px;
+}
+
+label{
+    color: #757575;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.login-input{ 
+    /* background: #F1F1F1; */
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #949494;
+}
+
+#button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#button p{
+    font-weight: 600;
+    color: #717171;
+}
+
+#login-btn{
+    width: 202px;
+    height: 56px;
+    background: #EB3B3B;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
