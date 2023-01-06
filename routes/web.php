@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
@@ -42,7 +43,7 @@ Route::post('/addProduct', [PageController::class, 'addProduct']);
 Route::get('/salesSeller', [PageController::class, 'salesSeller']);
 Route::get('/transactionHistorySeller', [PageController::class, 'transactionHistorySeller']);
 Route::get('/transactionHistoryDetailSeller', [PageController::class, 'transactionHistoryDetailSeller']);
-Route::get('/transactionHistoryBuyer', [PageController::class, 'transactionHistoryBuyer']);
+Route::get('/transactionHistoryBuyer', [PageController::class, 'transactionHistoryBuyer'])->name('transactionHistory');
 Route::get('/transactionHistoryDetailBuyer', [PageController::class, 'transactionHistoryDetailBuyer']);
 
 Route::post('/logoutAccount', [PageController::class, 'logoutAccount']);
@@ -55,10 +56,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/insideOutlet', [PageController::class, 'insideOutlet']);
 
 //Payment Method
-Route::get('/payment-method', [PaymentMethodController::class, 'paymentMethod']);
+Route::get('/payment-method', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');
 
 //Account
-Route::get('/account', [AccountController::class, 'account']);
+Route::get('/account', [AccountController::class, 'account'])->name('account');
 
 //Incoming Order
 Route::get('/incoming-order', [OrderController::class, 'incomingOrder'])->name('incomingOrder');
@@ -67,4 +68,4 @@ Route::get('/incoming-order', [OrderController::class, 'incomingOrder'])->name('
 Route::get('/accepted-order', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');
 
 //Cart
-Route::get('/cartBuyer', [PageController::class, 'cartBuyer']);
+Route::get('/cart', [CartController::class, 'cart'])->name('cart');

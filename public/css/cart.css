@@ -1,0 +1,63 @@
+main{
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 39px;
+}
+
+.cart-group{
+    width:  380px;
+    /* background-color: #F5F5F5; */
+    /* border: 1px solid black; */
+    margin-bottom: 45px;
+}
+
+.cart-group h6{
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 11px;
+}
+
+.cart-group .cart-table img{
+    width: 84px;
+    height: 84px;   
+    border-radius: 10px;
+}
+
+.cart-group .cart-table tr .food-name{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cart-group .cart-table tr .food-price{
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.cart-group .cart-table tr .cart-qty{
+    max-width: 146px;
+    display: flex;
+    align-items: center;
+}
+
+.cart-group .cart-table tr .cart-qty input{
+    width: 42px;
+    text-align: center;
+}
+
+.cart-group .cart-table .cart-total td{
+    font-weight: 400;
+    font-size: 19px;
+}
+
+.cart-group .cart-table tr .checkout-btn{
+    width: 112px;
+    height: 32.27px;
+    background: #EB3B3B;
+    border-radius: 44px;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
