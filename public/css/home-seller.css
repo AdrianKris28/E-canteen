@@ -1,0 +1,33 @@
+main{
+    margin: auto;
+}
+
+.home-seller{
+    max-width: 338px;
+    margin-top: 60px;
+}
+
+.home-seller .home-seller-btn{
+    background-color: #EB3B3B;
+    border-radius: 10px;
+}
+
+.home-seller tr{
+    height: 152px;
+}
+
+.home-seller .white{
+    height: 51px;
+}
+
+.home-seller tr td{
+    vertical-align: middle;
+    border-top: none;
+}
+
+.home-seller tr td a{
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+}

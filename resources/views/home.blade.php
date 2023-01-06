@@ -6,6 +6,7 @@
 
 @section('css')
 <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home-seller.css') }}">
 @endsection
 
 @section('content')
@@ -79,23 +80,31 @@
           
         {{-- Ini Menu Seller --}}
 
-        <table class="table" style="text-align: center">
+        <table class="table home-seller" style="text-align: center">
           <tr>
-            <td><a href="/menuSeller">Menu</a></td>
-          
-          <td><a href="/incoming-order">Incoming Order</a></td>
+            <td class="col-sd-1 home-seller-btn"><a href="/menuSeller">Menu</a></td>
+            <td class="col-sd-1"></td>
+            <td class="col-sd-1 home-seller-btn"><a href="/incoming-order">Incoming <br> Order</a></td>
           </tr>
 
+          <tr class="white"></tr>
+
           <tr>
-            <td><a href="/salesSeller">Sales</a></td>
-          
-            <td><a href="/transactionHistorySeller">History</a></td>
+            <td class="col-sd-1 home-seller-btn"><a href="/salesSeller">Sales</a></td>
+            <td class="col-sd-1"></td>
+            <td class="col-sd-1 home-seller-btn"><a href="/transactionHistorySeller">History</a></td>
           </tr>
           
-        <tr>
-          <td><a href="/account">Account</a></td>
-        </tr>
+          <tr class="white"></tr>
+
+          <tr>
+            <td class="col-sd-1 home-seller-btn"><a href="/account">Account</a></td>
+            <td class="col-sd-1"></td>
+            <td class="col-sd-1"></td>
+          </tr>
         </table>
+
+        
         @endif
 
     </div>
