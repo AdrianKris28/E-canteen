@@ -49,32 +49,36 @@
         <button type="submit" class="btn" id="save-btn">Save</button>
     </form>
 
-    <form action="" id="logout-form">
-        <button type="submit" class="btn" id="logout-btn">Logout</button>
-    </form>
-
     @else
     {{-- Buyer --}}
-        <h1 class="buyer-greet">Hi Username,</h1>
-
-        <form action="" id="account-form">
+    
+    <form action="" id="account-form">
+        @csrf
+        @foreach ($data as $dt)
+            
+            <h1 class="buyer-greet">Hi {{$dt->name}},</h1>
             <div class="mb-3 input">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="{{$dt->email}}" required>
             </div>
 
             <div class="mb-3 input">
                 <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Min 8 characters" required>
+                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Min 8 characters" value="{{$dt->password}}" required>
             </div>
 
             <div class="mb-3 input">
                 <label for="exampleFormControlTextarea1" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="08xxxxxxxxxx" required>
+                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="08xxxxxxxxxx" value="{{$dt->phone}}" required>
             </div>
+        @endforeach
 
             <button type="submit" class="btn" id="save-btn">Save</button>
         </form>
 
     @endif
+    
+    <form action="" id="logout-form">
+        <button type="submit" class="btn" id="logout-btn">Logout</button>
+    </form>
 @endsection
