@@ -64,7 +64,7 @@
                     
                     @php
                         // masih belum finish
-                        $totalPrice += 0;
+                        $totalPrice += $pd->price * $pd->qty;
                     @endphp
 
                     @empty
@@ -85,8 +85,8 @@
                     </a>
 
                 @php
-                // masih belum finish
-                $totalPrice += 0;
+                // buat Total Price yang akan di checkout buyer
+                $totalPrice += $pd->price * $pd->qty;
                 @endphp
 
                 @empty

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Models\User;
-
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -82,10 +85,99 @@ class PageController extends Controller
         return view('menuDetailSeller', compact('product'));
     }
 
-    public function menuDetailBuyer()
+    public function menuDetailBuyer($id)
     {
+        $product = Product::where('id', '=', $id)->get();
+        return view('menuDetailBuyer', compact('product'));
+    }
 
-        return view('menuDetailBuyer');
+    public function insideOutlet($id)
+    {
+        $product = Product::leftJoin('transactiondetail', 'transactiondetail.productId', '=', 'product.id')->where('sellerId', '=', $id)->get();
+
+        // gajadi dipake
+        // $totalHarga = Product::select(DB::raw('transactiondetail.qty * product.price as totalHarga'))
+        // ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+        // ->where('sellerId', '=', $id)->value('totalHarga');
+
+        // $outlet = Product::join('users', 'product.sellerId', '=', 'users.id')
+        //     ->where('sellerId', '=', $id)->get();
+
+        // $outlet = User::where('id', '=', $id)->get();
+
+        // dd($product);
+        return view('insideOutlet', compact('product'));
+    }
+
+    public function addToCart(Request $req)
+    {
+        //masih perlu di cek
+
+        $outletId = $req['outletId'];
+        // $date = new DateTime('now');
+
+        $currentDateTime = Carbon::now()->toDateTimeString();
+
+        // dd($sellerId);
+
+        $tid = Transaction::select('transaction.id')->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('product.sellerId', '=', $outletId)
+            ->value('transaction.id');
+
+        // dd($tid);
+
+        // NOTE
+        // ini masih ada bug harusnya (waktu add to cart di lebih dari satu outlet, data di table transaction ke update trs)
+        // hrs tambahin kondisi kalo sellernya beda baru insert data baru ke table transaction
+        // --> Solved
+
+        if ($tid == null) {
+            Transaction::create([
+                'buyerId' => Auth::user()->id,
+                'flag' => 0,
+                'transactionDate' => $currentDateTime,
+            ]);
+        } else {
+            Transaction::where('buyerId', '=', Auth::user()->id)
+                ->update([
+                    'buyerId' => Auth::user()->id,
+                    'flag' => 0,
+                    'transactionDate' => $currentDateTime,
+                    'created_at' => $currentDateTime,
+                ]);
+        }
+
+        $transactionId = Transaction::select('id')
+            ->where('transaction.created_at', '=', $currentDateTime)
+            ->where('buyerId', '=', Auth::user()->id)
+            ->value('id');
+
+        // dd($transactionId);
+
+        if (
+            TransactionDetail::select('productId')->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('productId', '=', $req['productId'])
+            ->where('buyerId', '=', Auth::user()->id)->value('productId') != null
+        ) {
+            TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+                ->where('productId', '=', $req['productId'])
+                ->where('buyerId', '=', Auth::user()->id)
+                ->update([
+                    'transactionId' => $transactionId,
+                    'productId' => $req['productId'],
+                    'qty' => $req['quantity'],
+                ]);
+        } else {
+            TransactionDetail::create([
+                'transactionId' => $transactionId,
+                'productId' => $req['productId'],
+                'qty' => $req['quantity'],
+            ]);
+        }
+
+        return redirect('/insideOutlet/' . $outletId);
     }
 
     public function editMenu(Request $req)
@@ -196,18 +288,5 @@ class PageController extends Controller
     public function transactionHistoryDetailBuyer()
     {
         return view('transactionHistoryDetailBuyer');
-    }
-
-    public function insideOutlet($id)
-    {
-        $product = Product::where('sellerId', '=', $id)->get();
-
-        // $outlet = Product::join('users', 'product.sellerId', '=', 'users.id')
-        //     ->where('sellerId', '=', $id)->get();
-
-        // $outlet = User::where('id', '=', $id)->get();
-
-        // dd($product);
-        return view('insideOutlet', compact('product'));
     }
 }

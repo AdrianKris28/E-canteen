@@ -36,7 +36,6 @@ Route::get('/searchProductOutlet', [PageController::class, 'searchProductOutlet'
 
 Route::get('/deleteMenu/{id}', [PageController::class, 'deleteMenu']);
 
-Route::get('/menuDetailBuyer', [PageController::class, 'menuDetailBuyer']);
 Route::post('/editMenu', [PageController::class, 'editMenu']);
 
 Route::get('/addNewProductSeller', [PageController::class, 'addNewProductSeller']);
@@ -58,6 +57,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Inside Outlet
 Route::get('/insideOutlet/{id}', [PageController::class, 'insideOutlet']);
+Route::get('/menuDetailBuyer/{id}', [PageController::class, 'menuDetailBuyer']);
+Route::post('/addToCart', [PageController::class, 'addToCart']);
+
+
 
 //Payment Method
 Route::get('/payment-method', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');

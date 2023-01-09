@@ -25,22 +25,40 @@ class AccountController extends Controller
         //Connect storage
         // php artisan storage:link
 
-        $imageLocation = $req['imageOld'];
-
-        if ($req->file('image') != null) {
-            $image = $req->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imageLocation = 'images/' . $imageName;
-            Storage::putFileAs('public/images', $image, $imageName);
+        if ($req['password'] == Auth::user()->password) {
+            $updatedPassword = $req['password'];
+        } else {
+            $updatedPassword = Hash::make($req['password']);
         }
 
-        User::where('id', '=', Auth::user()->id)
-            ->update([
-                'email' => $req['email'],
-                'password' => Hash::make($req['password']),
-                'phone' => $req['phonenumber'],
-                'image' => $imageLocation,
-            ]);
+        if (Auth::user()->role == 'Seller') {
+
+            $imageLocation = $req['imageOld'];
+
+            if ($req->file('image') != null) {
+                $image = $req->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imageLocation = 'images/' . $imageName;
+                Storage::putFileAs('public/images', $image, $imageName);
+            }
+
+            User::where('id', '=', Auth::user()->id)
+                ->update([
+                    'email' => $req['email'],
+                    'password' => $updatedPassword,
+                    'phone' => $req['phonenumber'],
+                    'image' => $imageLocation,
+                ]);
+        }
+
+        if (Auth::user()->role == 'Buyer') {
+            User::where('id', '=', Auth::user()->id)
+                ->update([
+                    'email' => $req['email'],
+                    'password' => $updatedPassword,
+                    'phone' => $req['phonenumber'],
+                ]);
+        }
 
         return redirect('/account');
     }

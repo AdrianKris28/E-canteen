@@ -52,24 +52,24 @@
     @else
     {{-- Buyer --}}
     
-    <form action="" id="account-form">
+    <form action="/editProfile" id="account-form" method="POST">
         @csrf
         @foreach ($data as $dt)
             
             <h1 class="buyer-greet">Hi {{$dt->name}},</h1>
             <div class="mb-3 input">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="{{$dt->email}}" required>
+                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="{{$dt->email}}" required>
             </div>
 
             <div class="mb-3 input">
                 <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Min 8 characters" value="{{$dt->password}}" required>
+                <input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder="Min 8 characters" value="{{$dt->password}}" required>
             </div>
 
             <div class="mb-3 input">
                 <label for="exampleFormControlTextarea1" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="08xxxxxxxxxx" value="{{$dt->phone}}" required>
+                <input type="number" name="phonenumber" class="form-control" id="exampleFormControlInput1" placeholder="08xxxxxxxxxx" value="{{$dt->phone}}" required>
             </div>
         @endforeach
 

@@ -24,17 +24,20 @@
 </head>
 <body>
         
-     <form action="/editMenu" method="post">
+     <form action="/addToCart" method="post">
         @csrf
-        {{-- @foreach ($collection as $item) --}}
-        <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" style="width: 100%;height: 300px" alt="Gambar">
+        @foreach ($product as $pd)
+        <input type="hidden" name="productId" value="{{$pd->id}}">
+        <input type="hidden" name="outletId" value="{{$pd->sellerId}}">
+
+        <img src="{{ Storage::url($pd->image)}}" style="width: 100%;height: 300px" alt="Gambar">
             
         <div style="margin-top: 30px">
             <div>
-                <h2 style="margin-left: 9px">Menu Name</h2>
-                <h2 style="margin-left: 10px">Rp. Price</h2>
+                <h2 style="margin-left: 9px">{{$pd->name}}</h2>
+                <h2 style="margin-left: 10px">Rp. {{$pd->price}}</h2>
             </div>
-            <p style="margin-left: 10px">Description</p>
+            <p style="margin-left: 10px">{{$pd->description}}</p>
         </div>
         
         <div style="text-align: center;margin-top: 100px">
@@ -42,7 +45,7 @@
             <input type="number" name="quantity" id="quantity" value="0" style="width:50px;text-align: center;border: 0" min="1">
         </div>
             
-        {{-- @endforeach --}}
+        @endforeach
 
         <button type="submit" class="btn btn-primary" style="display: flex;margin: auto;padding: 10px 40px 10px 40px;margin-top: 20px">Add to Cart</button>
                 
