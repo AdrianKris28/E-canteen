@@ -18,9 +18,13 @@ class PageController extends Controller
     public function homepage()
     {
         $outlet = User::where('role', '=', 'Seller')->get();
-
         // dd($outlet);
-        return view('home', compact('outlet'));
+
+        if (Auth::check()) {
+            return view('home', compact('outlet'));
+        } else {
+            return view('auth.login');
+        }
     }
 
     // public function home($id)
