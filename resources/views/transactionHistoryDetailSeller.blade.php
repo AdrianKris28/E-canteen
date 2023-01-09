@@ -5,7 +5,7 @@
 @endsection --}}
 
 @section('content')
-<div class="container">
+<div class="container" style="border: solid black 1px;border-radius: 7px">
        <h2 style="text-align: center">Detail Transaction</h2>
 
        <div style="max-width: 350px;margin: auto;margin-top: 20px">

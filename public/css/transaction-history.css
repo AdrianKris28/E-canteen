@@ -1,0 +1,21 @@
+.transaction-id, .transaction-date{
+    font-weight: 600;
+    font-size: 14px;    
+    margin-bottom: 7px;
+}
+
+.transaction-price{
+    font-weight: 600;
+    font-size: 12px;    
+}
+
+.transaction-img{
+    width: 75px;
+    height: 66px;
+    border-radius: 10px;
+}
+
+.transaction-status{
+    font-weight: 600;
+    font-size: 14px;
+}

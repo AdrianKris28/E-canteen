@@ -77,7 +77,7 @@
                                 @else
 
                                 <a class="dropdown-item" href="/menuSeller">Menu</a>
-                                <a class="dropdown-item" href="/incoming-order">Incoming Order</a>
+                                <a class="dropdown-item" href="/incomingOrder">Incoming Order</a>
                                 <a class="dropdown-item" href="salesSeller">Sales</a>
                                 <a class="dropdown-item" href="/transactionHistorySeller">History</a>
 

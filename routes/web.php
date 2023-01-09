@@ -63,17 +63,17 @@ Route::post('/addToCart', [PageController::class, 'addToCart']);
 
 
 //Payment Method
-Route::get('/payment-method', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');
+Route::get('/paymentMethod', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');
 
 //Account
 Route::get('/account', [AccountController::class, 'account'])->name('account');
 Route::post('/editProfile', [AccountController::class, 'editProfile']);
 
 //Incoming Order
-Route::get('/incoming-order', [OrderController::class, 'incomingOrder'])->name('incomingOrder');
+Route::get('/incomingOrder', [OrderController::class, 'incomingOrder'])->name('incomingOrder');
 
 //Accepted Order
-Route::get('/accepted-order', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');
+Route::get('/acceptedOrder', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');
 
 //Cart
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/transaction-history.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
        <h2 style="text-align: center">History</h2>
@@ -27,17 +31,18 @@
                     {{-- @forelse ($data as $dt) --}} 
                         <tr>
                             <td style="padding-right: 0">
-                                <p style="margin-bottom: 0">Transaction ID</p>
-                                <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" style="width: 109px;height:100px;border-radius: 8px" alt="Gambar">
+                                <p class="transaction-id">Transaction ID</p>
+                                <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="transaction-img" alt="Gambar" >
                             </td>
                             <td>
-                                <p style="margin-top: 40px">Total Harga <br>
+                                <p style="margin-top: 40px" class="transaction-price">
+                                    Total Harga <br>
                                     Rp xxxxxx
                                 </p>                             
                             </td>
                             <td>
-                                <p>Transaction Date</p>
-                                <p>Transaction Status</p>
+                                <p class="transaction-date">Transaction Date</p>
+                                <p class="transaction-status">Transaction <br> Status</p>
                                 <a href="/transactionHistoryDetailBuyer" class="btn btn-primary">View</a>
                             </td>
                         </tr> 
