@@ -53,17 +53,10 @@
                                 <span>Stock: <br></span>
                                  {{$pd->stock}} pcs
                             </td>
-                            {{-- <td class="delete-btn"> --}}
-                                {{-- <a href="/deleteMenu/{{$pd->id}}" > --}}
-                                    {{-- Delete --}}
-                                    {{-- <img src="{{ Storage::url("images\delete-icon.png") }}" alt="delete-icon">
-                                </a> --}}
-                            {{-- </td> --}}
 
                         </tr> 
                     
                     @php
-                        // masih belum finish
                         $totalPrice += $pd->price * $pd->qty;
                     @endphp
 
