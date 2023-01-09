@@ -1,0 +1,63 @@
+main{
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.search{
+    margin-bottom: 25px;
+}
+
+.search-input{
+    width: 280px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.search-btn{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.menu-card tr td{
+    vertical-align: middle;
+}
+
+.menu-name{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.menu-price, .menu-stock{
+    font-weight: 600;
+    font-size: 12px;    
+}
+
+.checkout-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    margin-top: 40px;
+    border: 1px black solid;
+    border-radius: 10px;
+    width: 349px;
+    padding: 7px 14px 7px 14px;
+    height: 40px;
+}
+
+.checkout-container p{
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0;
+}
+
+#checkout-btn{
+    width: 110px;
+    height: 26px;
+    background: #EB3B3B;
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

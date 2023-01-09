@@ -1,0 +1,56 @@
+main{
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.search{
+    margin-bottom: 25px;
+}
+
+.row #new-product-btn{
+    margin-bottom: 15px;
+    text-align: right;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.product-img{
+    width: 81px;
+    height: 81px;
+    border-radius: 10px;
+}
+
+.search-input{
+    width: 280px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.search-btn{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.menu-name{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.menu-price, .menu-stock{
+    font-weight: 600;
+    font-size: 12px;    
+}
+
+table tr .delete-btn{
+    height: 105.41px;
+    vertical-align: middle;
+}
+
+.menu-card tr td{
+    vertical-align: middle;
+}
+
+.delete-btn img{
+    width: 17px;
+    height: 16px;
+}
