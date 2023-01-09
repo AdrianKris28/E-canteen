@@ -7,9 +7,9 @@
 @section('content')
     <div class="container">
         
-        {{-- @foreach ($outlet as $ot)
-        <h2 style="text-align: center">{{$ot->name}}</h2>
-        @endforeach --}}
+ 
+        <a href="/insideOutlet/{{$id}}"> <h2 style="text-align: center;color: black">{{$namaOutlet}}</h2></a>
+    
 
         <div class="row justify-content-center">
             <form action="/searchProductOutlet" method="get" style="margin-top: 20px; width:100%" class="search">

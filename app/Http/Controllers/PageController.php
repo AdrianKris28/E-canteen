@@ -95,7 +95,9 @@ class PageController extends Controller
 
         $id = $req['outletId'];
 
-        return view('insideOutlet', compact('product', 'totalHarga', 'id'));
+        $namaOutlet = User::where('id', '=', $req['outletId'])->value('name');
+
+        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet'));
     }
 
     public function menuDetailSeller($id)
@@ -112,6 +114,7 @@ class PageController extends Controller
 
     public function insideOutlet($id)
     {
+        $namaOutlet = User::where('id', '=', $id)->value('name');
 
         $product = Product::where('sellerId', '=', $id)->get();
 
@@ -133,7 +136,7 @@ class PageController extends Controller
         // $outlet = User::where('id', '=', $id)->get();
 
         // dd($product);
-        return view('insideOutlet', compact('product', 'totalHarga', 'id'));
+        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet'));
     }
 
     public function addToCart(Request $req)
