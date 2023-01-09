@@ -84,7 +84,7 @@
           <tr>
             <td class="col-sd-1 home-seller-btn"><a href="/menuSeller">Menu</a></td>
             <td class="col-sd-1"></td>
-            <td class="col-sd-1 home-seller-btn"><a href="/incoming-order">Incoming <br> Order</a></td>
+            <td class="col-sd-1 home-seller-btn"><a href="/incomingOrder">Incoming <br> Order</a></td>
           </tr>
 
           <tr class="white"></tr>

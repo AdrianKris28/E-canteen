@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -76,11 +77,25 @@ class PageController extends Controller
 
     public function searchProductOutlet(Request $req)
     {
+        // dd($req);
         $query = $req['query'];
 
-        $product = Product::where('product.name', 'LIKE', "%$query%")->get();
+        $product = Product::where('product.name', 'LIKE', "%$query%")
+            ->where('product.sellerId', '=', $req['outletId'])->get();
 
-        return view('insideOutlet', compact('product'));
+        $totalHarga = Product::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga'))
+            ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('product.sellerId', '=', $req['outletId'])->value('totalHarga');
+
+        if ($totalHarga == null) {
+            $totalHarga = 0;
+        }
+
+        $id = $req['outletId'];
+
+        return view('insideOutlet', compact('product', 'totalHarga', 'id'));
     }
 
     public function menuDetailSeller($id)
@@ -97,12 +112,20 @@ class PageController extends Controller
 
     public function insideOutlet($id)
     {
-        $product = Product::leftJoin('transactiondetail', 'transactiondetail.productId', '=', 'product.id')->where('sellerId', '=', $id)->get();
 
-        // gajadi dipake
-        // $totalHarga = Product::select(DB::raw('transactiondetail.qty * product.price as totalHarga'))
-        // ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
-        // ->where('sellerId', '=', $id)->value('totalHarga');
+        $product = Product::where('sellerId', '=', $id)->get();
+
+        $totalHarga = Product::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga'))
+            ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('product.sellerId', '=', $id)->value('totalHarga');
+
+        if ($totalHarga == null) {
+            $totalHarga = 0;
+        }
+
+        // dd($totalHarga);
 
         // $outlet = Product::join('users', 'product.sellerId', '=', 'users.id')
         //     ->where('sellerId', '=', $id)->get();
@@ -110,7 +133,7 @@ class PageController extends Controller
         // $outlet = User::where('id', '=', $id)->get();
 
         // dd($product);
-        return view('insideOutlet', compact('product'));
+        return view('insideOutlet', compact('product', 'totalHarga', 'id'));
     }
 
     public function addToCart(Request $req)

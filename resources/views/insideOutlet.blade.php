@@ -12,7 +12,10 @@
         @endforeach --}}
 
         <div class="row justify-content-center">
-            <form action="/searchProduct" method="get" style="margin-top: 20px; width:100%" class="search">
+            <form action="/searchProductOutlet" method="get" style="margin-top: 20px; width:100%" class="search">
+               
+                <input type="hidden" name="outletId" value="{{$id}}">
+                    
                 <table>
                     <td>
                         <input type="text" class="form-control search-input" placeholder="Search..." name="query">
@@ -57,7 +60,8 @@
                         </tr> 
                     
                     @php
-                        $totalPrice += $pd->price * $pd->qty;
+                        // $totalPrice += $pd->price * $pd->qty;
+                        // $totalPrice += $totalHarga
                     @endphp
 
                     @empty
@@ -86,6 +90,11 @@
                     <p style="margin-top: 30px"> There is no product yet </p>
                 @endforelse
                      --}}
+
+                    @php
+                        // $totalPrice += $pd->price * $pd->qty;
+                        $totalPrice = $totalHarga
+                    @endphp
                 
                     <div class="checkout-container">
                         <p>Total: Rp {{$totalPrice}}</p>

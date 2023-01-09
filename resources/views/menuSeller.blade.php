@@ -38,7 +38,7 @@
                      
                         <tr class="clickable" onclick="window.location='/menuDetailSeller/{{$pd->id}}'">
                             <td>
-                                    <img src="{{ Storage::url($pd->image) }}" style="width: 80.91px;height: 80.91px;border-radius: 10px" alt="Gambar" class="product-img">
+                                <img src="{{ Storage::url($pd->image) }}" style="width: 80.91px;height: 80.91px;border-radius: 10px" alt="Gambar" class="product-img">
                             </td>
                             <td>
                                 <span class="menu-name">

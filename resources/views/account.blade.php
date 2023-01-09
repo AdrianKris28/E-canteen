@@ -59,7 +59,12 @@
             <h1 class="buyer-greet">Hi {{$dt->name}},</h1>
             <div class="mb-3 input">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="{{$dt->email}}" required>
+                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1" placeholder="name@example.com" value="{{$dt->email}}" required>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
             </div>
 
             <div class="mb-3 input">

@@ -25,6 +25,7 @@ class AccountController extends Controller
         //Connect storage
         // php artisan storage:link
 
+
         if ($req['password'] == Auth::user()->password) {
             $updatedPassword = $req['password'];
         } else {
