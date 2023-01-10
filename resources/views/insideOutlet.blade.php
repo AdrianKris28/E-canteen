@@ -70,51 +70,33 @@
 
                 </table>
 
-
-                {{-- @forelse ($product as $pd) 
-                    <a href="#" style="color: black">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr);width: 400px;margin-left: 40px">
-                            <img src="{{ Storage::url($pd->image)}}" style="width: 84px;height: 84px;border-radius: 10px" alt="Img">
-                            <p>{{$pd->name}} <br> Rp {{$pd->price}}</p>
-                            <p style="text-align: center">{{$pd->stock}} Stock</p>
-                            
-                        </div>
-                    </a>
-
-                @php
-                // buat Total Price yang akan di checkout buyer
-                $totalPrice += $pd->price * $pd->qty;
-                @endphp
-
-                @empty
-                    <p style="margin-top: 30px"> There is no product yet </p>
-                @endforelse
-                     --}}
-
                     @php
                         // $totalPrice += $pd->price * $pd->qty;
                         $totalPrice = $totalHarga
                     @endphp
                 
                 <form action="/cart" method="post">
+                    @csrf
+                    <input type="hidden" name="transactionId" value="{{$transactionId}}">
+
                     <div class="table-number">
                         <label for="name">Table Number:</label>
-                        <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" min="1" required>
+                        <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" style="text-align: center" min="1" required>
                     </div>
+                          @error('transactionId')
+                                <div style="text-align: right;color: red">
+                                    <b>The user must add product to cart</b>
+                                </div>
+                                {{-- <span class="invalid-feedback" role="alert">
+                                    <strong>The user must add product to cart</strong>
+                                </span> --}}
+                        @enderror
                     <div class="checkout-container" style="margin-top: 20px">
                         <p>Total: Rp {{$totalPrice}}</p>
-                            @csrf
-                            <input type="hidden" name="transactionId" value="{{$transactionId}}">
-                            
-
-                               @error('transactionId')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>The user must add product to cart</strong>
-                                    </span>
-                                @enderror
+                         
                             <button type="submit" class="btn btn-danger" style="border-radius: 10px" id="checkout-btn">Checkout</button>
-                        </div>
-                        {{-- </div> --}}
+                    </div>
+                        
                 </form>
         
         </div>

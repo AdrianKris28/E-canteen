@@ -6,6 +6,8 @@
 
 @section('content')
 
+<h2 style="text-align: center">Cart</h2>
+
 @foreach ($outlet as $ot)
     <form class="cart-group" method="POST" action="/checkoutCart">
         @csrf
@@ -20,7 +22,7 @@
                 @endphp
                 
                 @php
-                $counter =0;    
+                $counter = 0;    
                 @endphp
 
                 @foreach ($product->where('sellerId', '=', $ot->sellerId ) as $pd)

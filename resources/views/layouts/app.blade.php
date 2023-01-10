@@ -71,7 +71,7 @@
 
                                 <a class="dropdown-item" href="/">Home</a>
                                 @if(Auth::user()->role == 'Buyer')
-                                <a class="dropdown-item" href="/cart">Cart</a>
+                                <a class="dropdown-item" href="/cartPage">Cart</a>
                                 <a class="dropdown-item" href="/transactionHistoryBuyer">History</a>
                                 
                                 @else
