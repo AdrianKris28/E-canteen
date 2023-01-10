@@ -83,7 +83,8 @@
 
     @endif
     
-    <form action="" id="logout-form">
+    <form action="/logoutAccount" id="logout-form" method="POST">
+        @csrf
         <button type="submit" class="btn" id="logout-btn">Logout</button>
     </form>
 @endsection

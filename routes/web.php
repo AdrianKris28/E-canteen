@@ -61,6 +61,7 @@ Route::get('/menuDetailBuyer/{id}', [PageController::class, 'menuDetailBuyer']);
 Route::post('/addToCart', [PageController::class, 'addToCart']);
 
 //Cart
+Route::get('/cartPage', [CartController::class, 'cartPage']);
 Route::post('/cart', [CartController::class, 'cart'])->name('cart');
 Route::post('/checkoutCart', [CartController::class, 'checkoutCart']);
 

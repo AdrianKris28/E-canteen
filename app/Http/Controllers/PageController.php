@@ -124,6 +124,10 @@ class PageController extends Controller
             ->where('transaction.buyerId', Auth::user()->id)
             ->value('transactiondetail.qty');
 
+        if ($qty == null) {
+            $qty = 0;
+        }
+
         // dd($qty);
 
 

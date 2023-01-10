@@ -26,7 +26,7 @@ class CartController extends Controller
                 'qty' => $qty + 1,
             ]);
 
-        return redirect('/cart');
+        return redirect('/cartPage');
     }
 
     public function minusQuantity($transactionId, $productId)
@@ -43,7 +43,7 @@ class CartController extends Controller
                 'qty' => $qty - 1,
             ]);
 
-        return redirect('/cart');
+        return redirect('/cartPage');
     }
 
 
@@ -75,6 +75,28 @@ class CartController extends Controller
             ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
 
 
+
+        // dd($outlet);
+        return view('cart', compact('product', 'outlet'));
+    }
+
+    public function cartPage()
+    {
+        $product = Product::select(DB::raw('product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image,product.sellerId'))
+            ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.buyerId', Auth::user()->id)
+            ->where('transaction.flag', 0)
+            // ->groupBy('product.id, product.name, product.price, transactiondetail.qty')
+            ->get();
+
+        $outlet = Product::join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->join('users', 'users.id', '=', 'product.sellerId')
+            ->where('transaction.buyerId', Auth::user()->id)
+            ->where('transaction.flag', 0)
+            ->groupBy(['product.sellerId', 'users.name', 'transaction.id'])
+            ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
 
         // dd($outlet);
         return view('cart', compact('product', 'outlet'));

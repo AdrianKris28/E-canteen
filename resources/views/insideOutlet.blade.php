@@ -103,7 +103,7 @@
                             <input type="hidden" name="transactionId" value="{{$transactionId}}">
                             
                             <label for="name">Table Number:</label>
-                            <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" min="1">
+                            <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" min="1" required>
 
                                @error('transactionId')
                                     <span class="invalid-feedback" role="alert">
