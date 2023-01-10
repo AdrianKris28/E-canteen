@@ -60,7 +60,12 @@ Route::get('/insideOutlet/{id}', [PageController::class, 'insideOutlet']);
 Route::get('/menuDetailBuyer/{id}', [PageController::class, 'menuDetailBuyer']);
 Route::post('/addToCart', [PageController::class, 'addToCart']);
 
+//Cart
+Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+Route::post('/checkoutCart', [CartController::class, 'checkoutCart']);
 
+Route::get('/plusQuantity/{transactionId}/{productId}', [CartController::class, 'plusQuantity']);
+Route::get('/minusQuantity/{transactionId}/{productId}', [CartController::class, 'minusQuantity']);
 
 //Payment Method
 Route::get('/paymentMethod', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');
@@ -74,6 +79,3 @@ Route::get('/incomingOrder', [OrderController::class, 'incomingOrder'])->name('i
 
 //Accepted Order
 Route::get('/acceptedOrder', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');
-
-//Cart
-Route::get('/cart', [CartController::class, 'cart'])->name('cart');

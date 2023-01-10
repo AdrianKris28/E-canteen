@@ -70,7 +70,9 @@ class PageController extends Controller
     {
         $query = $req['query'];
 
-        $product = Product::where('product.name', 'LIKE', "%$query%")->get();
+        $product = Product::where('product.name', 'LIKE', "%$query%")
+            ->where('sellerId', '=', Auth::user()->id)
+            ->get();
 
         return view('menuSeller', compact('product'));
     }
@@ -108,8 +110,18 @@ class PageController extends Controller
 
     public function menuDetailBuyer($id)
     {
-        $product = Product::where('id', '=', $id)->get();
-        return view('menuDetailBuyer', compact('product'));
+        $product = Product::where('product.id', '=', $id)
+            ->get();
+
+        $qty = TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transactiondetail.productId', '=', $id)
+            ->where('transaction.buyerId', Auth::user()->id)
+            ->value('transactiondetail.qty');
+
+        // dd($qty);
+
+
+        return view('menuDetailBuyer', compact('product', 'qty'));
     }
 
     public function insideOutlet($id)

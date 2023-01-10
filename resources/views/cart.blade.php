@@ -5,89 +5,74 @@
 @endsection
 
 @section('content')
-    <form class="cart-group">
-        <h6>Outlet Name 1</h6>
-        <table class="table cart-table table-borderless">
-            <tr>
-                <td>
-                    <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" alt="Gambar">
-                </td>
-                <td class="cart-detail">
-                    <p class="food-name">Food Name</p>
-                    <p class="food-price">Price</p>     
-                </td>
-                <td class="cart-qty">
-                    <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
-                    <input type='number' name='quantity' value='1' class='qty' min="0">
-                    <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" alt="Gambar">
-                </td>
-                <td class="cart-detail">
-                    <p class="food-name">Food Name</p>
-                    <p class="food-price">Price</p>     
-                </td>
-                <td class="cart-qty">
-                    <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
-                    <input type='number' name='quantity' value='1' class='qty' min="0">
-                    <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
-                </td>
-            </tr>
-            <tr class="cart-total">
-                <td colspan="2">
-                    Total
-                </td>
-                <td>Rp xxx.xxx</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    
-                </td>
-                <td>
-                    <button class="btn checkout-btn">Checkout</button>
-                </td>
-            </tr>
-        </table>
-        <hr>
-    </form>
 
-    <form class="cart-group">
-        <h6>Outlet Name 1</h6>
-        <table class="table cart-table table-borderless">
-            <tr>
-                <td>
-                    <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" alt="Gambar">
-                </td>
-                <td class="cart-detail">
-                    <p class="food-name">Food Name</p>
-                    <p class="food-price">Price</p>     
-                </td>
-                <td class="cart-qty">
-                    <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
-                    <input type='number' name='quantity' value='1' class='qty' min="0">
-                    <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
-                </td>
-            </tr>
-            <tr class="cart-total">
-                <td colspan="2">
-                    Total
-                </td>
-                <td>Rp xxx.xxx</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    
-                </td>
-                <td>
-                    <button class="btn checkout-btn">Checkout</button>
-                </td>
-            </tr>
-        </table>
-        <hr>
-    </form> 
+@foreach ($outlet as $ot)
+    <form class="cart-group" method="POST" action="/checkoutCart">
+        @csrf
+
+        <input type="hidden" name="transactionId" value="{{$ot->transactionId}}">
+            <h6>{{$ot->name}}</h6>
+
+            <table class="table cart-table table-borderless">
+
+                @php
+                    $grandTotal = 0;
+                @endphp
+                
+                @php
+                $counter =0;    
+                @endphp
+
+                @foreach ($product->where('sellerId', '=', $ot->sellerId ) as $pd)
+                    <tr>
+                        <td>
+                            <img src="{{ Storage::url($pd->image)}}" alt="Gambar">
+                        </td>
+                        <td class="cart-detail">
+                            <p class="food-name">{{$pd->productName}}</p>
+                            <p class="food-price">{{$pd->price}}</p>     
+                        </td>
+                        <td class="cart-qty">
+                            <a href="/minusQuantity/{{$ot->transactionId}}/{{$pd->productId}}">
+                                <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
+                            </a>
+
+                            <input type='number' name='quantity[{{$counter}}]' value='{{$pd->qty}}' class='qty' min="0" id="qty">
+                            <input type="hidden" name="productId[{{$counter}}]" value="{{$pd->productId}}">
+                            <a href="plusQuantity/{{$ot->transactionId}}/{{$pd->productId}}">
+                                <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
+                            </a>
+                            
+                            @php
+                                $counter++;
+                            @endphp
+                            
+                        </td>
+                    </tr>
+                    @php
+                        $grandTotal += $pd->qty * $pd->price;
+                    @endphp
+                @endforeach
+                <tr class="cart-total">
+                    <td colspan="2">
+                        Total
+                    </td>
+                    <td>Rp {{$grandTotal}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        
+                    </td>
+                    <td>
+                        <button type="submit" class="btn checkout-btn">Checkout</button>
+                    </td>
+                </tr>
+            </table>
+
+            <hr>
+        </form>
+        @endforeach
+
 
 @endsection
 

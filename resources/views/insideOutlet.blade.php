@@ -98,7 +98,7 @@
                 
                     <div class="checkout-container">
                         <p>Total: Rp {{$totalPrice}}</p>
-                        <form action="#" method="POST">
+                        <form action="/cart" method="get">
                             <button type="submit" class="btn btn-danger" style="border-radius: 10px" id="checkout-btn">Checkout</button>
                         </form>
                     </div>
