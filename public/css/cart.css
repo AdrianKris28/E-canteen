@@ -39,9 +39,11 @@ main{
     align-items: center;
 }
 
-.cart-group .cart-table tr .cart-qty input{
+.cart-group .cart-table tr .cart-qty .qty{
     width: 42px;
     text-align: center;
+    border: none;
+    background-color: inherit;
 }
 
 .cart-group .cart-table .cart-total td{

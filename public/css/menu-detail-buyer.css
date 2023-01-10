@@ -1,0 +1,11 @@
+main{
+    background-color: #fff;
+}
+
+.pb-4, .py-4 {
+    padding-top: 0 !important;
+}
+
+img{
+    height: 318px;
+}

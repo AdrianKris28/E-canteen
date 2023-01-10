@@ -96,14 +96,16 @@
                         $totalPrice = $totalHarga
                     @endphp
                 
-                    <div class="checkout-container">
+                <form action="/cart" method="post">
+                    <div class="table-number">
+                        <label for="name">Table Number:</label>
+                        <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" min="1" required>
+                    </div>
+                    <div class="checkout-container" style="margin-top: 20px">
                         <p>Total: Rp {{$totalPrice}}</p>
-                        <form action="/cart" method="post">
                             @csrf
                             <input type="hidden" name="transactionId" value="{{$transactionId}}">
                             
-                            <label for="name">Table Number:</label>
-                            <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" min="1" required>
 
                                @error('transactionId')
                                     <span class="invalid-feedback" role="alert">
@@ -111,9 +113,9 @@
                                     </span>
                                 @enderror
                             <button type="submit" class="btn btn-danger" style="border-radius: 10px" id="checkout-btn">Checkout</button>
-                        </form>
-                    </div>
-                {{-- </div> --}}
+                        </div>
+                        {{-- </div> --}}
+                </form>
         
         </div>
     </div>

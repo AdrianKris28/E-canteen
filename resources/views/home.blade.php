@@ -16,14 +16,14 @@
 <div class="container">
    <div class="row justify-content-center">
         @if(Auth::user()->role == 'Buyer')
-            <form action="/searchOutlet" method="get" style="margin-top: 20px">
+            <form action="/searchOutlet" method="get" style="margin-top: 20px" class="search">
                   <table>
                       <td>
-                          <input type="text" class="form-control" placeholder="Search..." name="query">
+                          <input type="text" class="form-control search-input" placeholder="Search..." name="query">
                       </td>
 
                       <td>
-                      <button type="submit" class="btn btn-success" >
+                      <button type="submit" class="btn btn-success search-btn" >
                           Search
                       </button>
                       </td>
@@ -36,8 +36,8 @@
                   @forelse ($outlet as $ot)
                       <a href="/insideOutlet/{{$ot->id}}" style="color: black">
                           <div style="padding: 10px">
-                              <img src="{{ Storage::url($ot->image) }}" alt="No Image" width="100px" height="100px" style="border-radius: 10px"><br>
-                              <h5 style="padding:0; margin:10px"> {{$ot->name}} </h5>
+                              <img src="{{ Storage::url($ot->image) }}" alt="No Image" width="109px" height="112px" style="border-radius: 10px"><br>
+                              <h5 style="padding:0; margin:10px" class="product-name"> {{$ot->name}} </h5>
                             
                           </div>
                       </a>

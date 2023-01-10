@@ -30,7 +30,7 @@
                         </td>
                         <td class="cart-detail">
                             <p class="food-name">{{$pd->productName}}</p>
-                            <p class="food-price">{{$pd->price}}</p>     
+                            <p class="food-price">Rp. {{$pd->price}}</p>     
                         </td>
                         <td class="cart-qty">
                             <a href="/minusQuantity/{{$ot->transactionId}}/{{$pd->productId}}">

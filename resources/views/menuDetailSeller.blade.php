@@ -26,8 +26,6 @@
             <input id="image" type="file" accept=".png, .jpeg, .jpg" class="form-control @error('image') is-invalid @enderror" name="image" style="border: none">
             
         </div>
-
-
         
         <div style="text-align: center;margin-top: 100px" class="menu-detail-group cart-qty">
             {{-- <label for="stock"><h5>Stock:</h5></label>
@@ -39,8 +37,6 @@
             <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
        
         </div>
-
-    
             
         @endforeach
 

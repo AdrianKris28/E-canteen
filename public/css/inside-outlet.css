@@ -61,3 +61,22 @@ main{
     align-items: center;
     justify-content: center;
 }
+
+.table-number{
+    display: flex;
+    justify-content: space-between;
+    width: 349px;
+    padding-left: 14px;
+    padding-right: 14px;
+    align-items: center;
+    font-weight: 600;
+    font-size: 12px;
+    height: 30px;
+}
+
+.table-number input{
+    width: 40px;
+    height: 30px;
+    font-weight: 600;
+    font-size: 12px;
+}
