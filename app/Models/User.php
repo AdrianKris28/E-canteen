@@ -22,7 +22,6 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'tableNumber',
         'image',
         'QRimage',
         'role'

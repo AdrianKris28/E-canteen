@@ -97,9 +97,15 @@ class PageController extends Controller
 
         $id = $req['outletId'];
 
+        $transactionId = Transaction::join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('product.sellerId', '=', $req['outletId'])
+            ->value('transaction.id');
+
         $namaOutlet = User::where('id', '=', $req['outletId'])->value('name');
 
-        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet'));
+        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet', 'transactionId'));
     }
 
     public function menuDetailSeller($id)
@@ -140,15 +146,15 @@ class PageController extends Controller
             $totalHarga = 0;
         }
 
-        // dd($totalHarga);
+        $transactionId = Transaction::join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('product.sellerId', '=', $id)
+            ->value('transaction.id');
 
-        // $outlet = Product::join('users', 'product.sellerId', '=', 'users.id')
-        //     ->where('sellerId', '=', $id)->get();
+        // dd($transactionId);
 
-        // $outlet = User::where('id', '=', $id)->get();
-
-        // dd($product);
-        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet'));
+        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet', 'transactionId'));
     }
 
     public function addToCart(Request $req)

@@ -30,34 +30,6 @@
                   
                   </table>
               </form>
-          
-          {{-- <div class="cardgroup row col">
-            
-              <div class="card" style="width: 100px;">
-                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h6 class="card-title">Kantin 1</h6>
-                  </div>
-              </div>
-              <div class="card" style="width: 100px;">
-                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h6 class="card-title">Kantin 2</h6>
-                  </div>
-              </div>
-              <div class="card" style="width: 100px;">
-                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h6 class="card-title">Kantin 3</h6>
-                  </div>
-              </div>
-              <div class="card" style="width: 100px;">
-                  <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h6 class="card-title">Kantin 4</h6>
-                  </div>
-              </div>
-            </div> --}}
 
               <div class="outletContainer" style="display: grid; grid-template-columns: repeat(3, 1fr);margin-top: 20px">
 

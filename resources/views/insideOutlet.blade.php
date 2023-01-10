@@ -98,7 +98,18 @@
                 
                     <div class="checkout-container">
                         <p>Total: Rp {{$totalPrice}}</p>
-                        <form action="/cart" method="get">
+                        <form action="/cart" method="post">
+                            @csrf
+                            <input type="hidden" name="transactionId" value="{{$transactionId}}">
+                            
+                            <label for="name">Table Number:</label>
+                            <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" min="1">
+
+                               @error('transactionId')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>The user must add product to cart</strong>
+                                    </span>
+                                @enderror
                             <button type="submit" class="btn btn-danger" style="border-radius: 10px" id="checkout-btn">Checkout</button>
                         </form>
                     </div>

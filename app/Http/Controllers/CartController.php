@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,8 +47,17 @@ class CartController extends Controller
     }
 
 
-    public function cart()
+    public function cart(Request $req)
     {
+        $req->validate([
+            'transactionId' => ['required'],
+        ]);
+
+        Transaction::where('id', $req['transactionId'])
+            ->update([
+                'tableNumber' => $req['tableNumber'],
+            ]);
+
         $product = Product::select(DB::raw('product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image,product.sellerId'))
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
@@ -63,6 +73,8 @@ class CartController extends Controller
             ->where('transaction.flag', 0)
             ->groupBy(['product.sellerId', 'users.name', 'transaction.id'])
             ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
+
+
 
         // dd($outlet);
         return view('cart', compact('product', 'outlet'));

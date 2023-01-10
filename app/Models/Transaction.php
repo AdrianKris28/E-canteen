@@ -14,6 +14,7 @@ class Transaction extends Model
         'paymentMethodId',
         'flag',
         'orderType',
+        'tableNumber',
         'transactionDate'
     ];
 
