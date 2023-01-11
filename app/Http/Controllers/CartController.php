@@ -50,10 +50,17 @@ class CartController extends Controller
     public function cart(Request $req)
     {
         // dd($req);
+        $prevtableNumber = Transaction::where('id', $req['transactionId'])->value('tableNumber');
+
         $req->validate([
             'transactionId' => ['required'],
-            'tableNumber' => ['unique:transaction'],
         ]);
+
+        if ($req['tableNumber'] != $prevtableNumber) {
+            $req->validate([
+                'tableNumber' => ['unique:transaction'],
+            ]);
+        }
 
         Transaction::where('id', $req['transactionId'])
             ->update([
@@ -72,6 +79,7 @@ class CartController extends Controller
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.buyerId', Auth::user()->id)
             ->where('transaction.flag', 0)
+            ->where('transaction.tableNumber', '!=', null)
             ->groupBy(['product.sellerId', 'users.name', 'transaction.id'])
             ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
 

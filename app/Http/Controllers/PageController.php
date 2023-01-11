@@ -102,11 +102,22 @@ class PageController extends Controller
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->where('transaction.buyerId', '=', Auth::user()->id)
             ->where('product.sellerId', '=', $req['outletId'])
-            ->value('transaction.id');
+            ->first('transaction.id');
+
+        $tableNumber = Transaction::join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
+            ->where('product.sellerId', '=', $id)
+            ->value('transaction.tableNumber');
+
+        if ($tableNumber == null) {
+            $tableNumber = 0;
+        }
 
         $namaOutlet = User::where('id', '=', $req['outletId'])->value('name');
 
-        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet', 'transactionId'));
+        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet', 'transactionId', 'tableNumber'));
     }
 
     public function menuDetailSeller($id)
@@ -160,9 +171,20 @@ class PageController extends Controller
             ->where('product.sellerId', '=', $id)
             ->value('transaction.id');
 
+        $tableNumber = Transaction::join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
+            ->where('product.sellerId', '=', $id)
+            ->value('transaction.tableNumber');
+
+        if ($tableNumber == null) {
+            $tableNumber = 0;
+        }
+
         // dd($transactionId);
 
-        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet', 'transactionId'));
+        return view('insideOutlet', compact('product', 'totalHarga', 'id', 'namaOutlet', 'transactionId', 'tableNumber'));
     }
 
     public function addToCart(Request $req)
@@ -199,7 +221,8 @@ class PageController extends Controller
                 'transactionDate' => $currentDateTime,
             ]);
         } else {
-            Transaction::where('transaction.buyerId', '=', Auth::user()->id)
+            Transaction::where('transaction.id', $tid)
+                ->where('transaction.buyerId', '=', Auth::user()->id)
                 ->where('transaction.flag', 0)
                 ->update([
                     'buyerId' => Auth::user()->id,

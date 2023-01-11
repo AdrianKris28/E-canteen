@@ -81,7 +81,7 @@
 
                     <div class="table-number">
                         <label for="name">Table Number:</label>
-                        <input type="number" name="tableNumber" class="form-control register-input @error('tableNumber') is-invalid @enderror" style="width: 70px;text-align: center" min="1" max="20" required>
+                        <input type="number" name="tableNumber" value="{{$tableNumber}}" class="form-control register-input @error('tableNumber') is-invalid @enderror" style="width: 70px;text-align: center" min="1" max="20" required>
                     </div>
                     
                         @error('tableNumber')
