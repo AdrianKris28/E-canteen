@@ -6,15 +6,15 @@
 
 @section('content')
 <div class="container">
-       <h2 style="text-align: center">History</h2>
+       <a href="/transactionHistoryBuyer"><h2 style="text-align: center;color: black">History</h2></a>
             <form action="/searchHistory" method="get" style="margin-top: 20px">
                 <label for="start">Start date:</label>
-                <input type="date" id="start" name="startdate" class="form-control">
+                <input type="date" id="start" name="startdate" class="form-control" required>
 
                 <br>
 
                 <label for="start">End date:</label>
-                <input type="date" id="end" name="enddate" class="form-control">
+                <input type="date" id="end" name="enddate" class="form-control" required>
 
                 <br>
 
