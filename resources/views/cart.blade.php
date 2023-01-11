@@ -8,7 +8,7 @@
 
 <h2 style="text-align: center">Cart</h2>
 
-@foreach ($outlet as $ot)
+@forelse ($outlet as $ot)
     <form class="cart-group" method="POST" action="/checkoutCart">
         @csrf
 
@@ -25,7 +25,7 @@
                 $counter = 0;    
                 @endphp
 
-                @foreach ($product->where('sellerId', '=', $ot->sellerId ) as $pd)
+                @foreach ($product->where('sellerId', '=', $ot->sellerId) as $pd)
                     <tr>
                         <td>
                             <img src="{{ Storage::url($pd->image)}}" alt="Gambar">
@@ -73,7 +73,9 @@
 
             <hr>
         </form>
-        @endforeach
+        @empty
+            <h5 style="text-align: center;margin-top: 30px;color: red"> <b>There is no product to checkout</b></h2>
+        @endforelse
 
 
 @endsection

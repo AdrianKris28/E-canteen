@@ -6,7 +6,11 @@
 
 
 @section('content')
-    <form action="" id="payment-method-form">
+    <form action="/payment" id="payment-method-form" method="POST">
+        @csrf
+
+        <input type="hidden" name="transactionId" value="{{$transactionId}}">
+        
         <div class="order-type-group">
             <p>Dine In / Take Away</p>
             <select class="form-select" aria-label="Default select example">

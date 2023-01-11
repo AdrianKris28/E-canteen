@@ -77,20 +77,26 @@
                 
                 <form action="/cart" method="post">
                     @csrf
-                    <input type="hidden" name="transactionId" value="{{$transactionId}}">
+                    <input type="hidden" name="transactionId" value="{{$transactionId}}" class="form-control register-input @error('transactionId') is-invalid @enderror">
 
                     <div class="table-number">
                         <label for="name">Table Number:</label>
-                        <input type="number" name="tableNumber" class="form-control register-input @error('transactionId') is-invalid @enderror" style="text-align: center" min="1" required>
+                        <input type="number" name="tableNumber" class="form-control register-input @error('tableNumber') is-invalid @enderror" style="width: 70px;text-align: center" min="1" max="20" required>
                     </div>
-                          @error('transactionId')
+                    
+                        @error('tableNumber')
+                        <div style="text-align: right;color: red">
+                            <b>Table number has been used</b>
+                        </div>
+                        @enderror
+                        
+                        @error('transactionId')
                                 <div style="text-align: right;color: red">
                                     <b>The user must add product to cart</b>
                                 </div>
-                                {{-- <span class="invalid-feedback" role="alert">
-                                    <strong>The user must add product to cart</strong>
-                                </span> --}}
+                        
                         @enderror
+
                     <div class="checkout-container" style="margin-top: 20px">
                         <p>Total: Rp {{$totalPrice}}</p>
                          

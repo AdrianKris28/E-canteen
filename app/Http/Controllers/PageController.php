@@ -89,6 +89,7 @@ class PageController extends Controller
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
             ->where('product.sellerId', '=', $req['outletId'])->value('totalHarga');
 
         if ($totalHarga == null) {
@@ -121,6 +122,7 @@ class PageController extends Controller
 
         $qty = TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transactiondetail.productId', '=', $id)
+            ->where('transaction.flag', 0)
             ->where('transaction.buyerId', Auth::user()->id)
             ->value('transactiondetail.qty');
 
@@ -144,6 +146,7 @@ class PageController extends Controller
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
             ->where('product.sellerId', '=', $id)->value('totalHarga');
 
         if ($totalHarga == null) {
@@ -153,6 +156,7 @@ class PageController extends Controller
         $transactionId = Transaction::join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
             ->where('product.sellerId', '=', $id)
             ->value('transaction.id');
 
@@ -166,6 +170,8 @@ class PageController extends Controller
         //masih perlu di cek
 
         $outletId = $req['outletId'];
+
+        $productId = $req['productId'];
         // $date = new DateTime('now');
 
         $currentDateTime = Carbon::now()->toDateTimeString();
@@ -175,6 +181,7 @@ class PageController extends Controller
         $tid = Transaction::select('transaction.id')->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->where('transaction.buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
             ->where('product.sellerId', '=', $outletId)
             ->value('transaction.id');
 
@@ -192,7 +199,8 @@ class PageController extends Controller
                 'transactionDate' => $currentDateTime,
             ]);
         } else {
-            Transaction::where('buyerId', '=', Auth::user()->id)
+            Transaction::where('transaction.buyerId', '=', Auth::user()->id)
+                ->where('transaction.flag', 0)
                 ->update([
                     'buyerId' => Auth::user()->id,
                     'flag' => 0,
@@ -204,6 +212,7 @@ class PageController extends Controller
         $transactionId = Transaction::select('id')
             ->where('transaction.created_at', '=', $currentDateTime)
             ->where('buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
             ->value('id');
 
         // dd($transactionId);
@@ -211,10 +220,13 @@ class PageController extends Controller
         if (
             TransactionDetail::select('productId')->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('productId', '=', $req['productId'])
-            ->where('buyerId', '=', Auth::user()->id)->value('productId') != null
+            ->where('buyerId', '=', Auth::user()->id)
+            ->where('transaction.flag', 0)
+            ->value('productId') != null
         ) {
             TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
                 ->where('productId', '=', $req['productId'])
+                ->where('transaction.flag', 0)
                 ->where('buyerId', '=', Auth::user()->id)
                 ->update([
                     'transactionId' => $transactionId,
@@ -334,11 +346,49 @@ class PageController extends Controller
 
     public function transactionHistoryBuyer()
     {
-        return view('transactionHistoryBuyer');
+        $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('users', 'users.id', '=', 'product.sellerId')
+            ->where('transaction.buyerId', Auth::user()->id)
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
+
+        // dd($data);
+        return view('transactionHistoryBuyer', compact('data'));
     }
 
-    public function transactionHistoryDetailBuyer()
+    public function searchHistory(Request $req)
     {
-        return view('transactionHistoryDetailBuyer');
+        $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('users', 'users.id', '=', 'product.sellerId')
+            ->where('transaction.buyerId', Auth::user()->id)
+            ->where('transactionDate', '>=', $req['startdate'])
+            ->where('transactionDate', '<=', $req['enddate'])
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
+
+        // dd($data);
+
+        return view('transactionHistoryBuyer', compact('data'));
+    }
+
+    public function transactionHistoryDetailBuyer($id)
+    {
+        $outlet = Transaction::select(DB::raw('transaction.id, transaction.transactionDate,  users.name as storeName, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.flag, users.image'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('users', 'users.id', '=', 'product.sellerId')
+            ->where('transaction.id', $id)
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'users.name', 'users.image', 'transaction.flag'])->first();
+
+        $product = Product::select(DB::raw('transactiondetail.transactionId, product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image'))
+            ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.buyerId', Auth::user()->id)->get();
+
+        // dd($product);
+
+        return view('transactionHistoryDetailBuyer', compact('outlet', 'product'));
     }
 }

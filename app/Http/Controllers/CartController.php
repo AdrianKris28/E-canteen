@@ -49,8 +49,10 @@ class CartController extends Controller
 
     public function cart(Request $req)
     {
+        // dd($req);
         $req->validate([
             'transactionId' => ['required'],
+            'tableNumber' => ['unique:transaction'],
         ]);
 
         Transaction::where('id', $req['transactionId'])
@@ -63,7 +65,6 @@ class CartController extends Controller
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transaction.buyerId', Auth::user()->id)
             ->where('transaction.flag', 0)
-            // ->groupBy('product.id, product.name, product.price, transactiondetail.qty')
             ->get();
 
         $outlet = Product::join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
@@ -73,8 +74,6 @@ class CartController extends Controller
             ->where('transaction.flag', 0)
             ->groupBy(['product.sellerId', 'users.name', 'transaction.id'])
             ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
-
-
 
         // dd($outlet);
         return view('cart', compact('product', 'outlet'));
@@ -118,6 +117,13 @@ class CartController extends Controller
             $count++;
         }
 
-        return redirect('/paymentMethod');
+        // Transaction::where('transaction.id', $req['transactionId'])
+        //     ->update([
+        //         'flag' => 1,
+        //     ]);
+
+        $transactionId = $req['transactionId'];
+
+        return view('paymentMethod', compact('transactionId'));
     }
 }

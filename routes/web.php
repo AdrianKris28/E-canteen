@@ -45,7 +45,9 @@ Route::get('/salesSeller', [PageController::class, 'salesSeller']);
 Route::get('/transactionHistorySeller', [PageController::class, 'transactionHistorySeller']);
 Route::get('/transactionHistoryDetailSeller', [PageController::class, 'transactionHistoryDetailSeller']);
 Route::get('/transactionHistoryBuyer', [PageController::class, 'transactionHistoryBuyer'])->name('transactionHistory');
-Route::get('/transactionHistoryDetailBuyer', [PageController::class, 'transactionHistoryDetailBuyer']);
+Route::get('/transactionHistoryDetailBuyer/{id}', [PageController::class, 'transactionHistoryDetailBuyer']);
+
+Route::get('/searchHistory', [PageController::class, 'searchHistory']);
 
 Route::post('/logoutAccount', [PageController::class, 'logoutAccount']);
 Auth::routes();
@@ -70,6 +72,7 @@ Route::get('/minusQuantity/{transactionId}/{productId}', [CartController::class,
 
 //Payment Method
 Route::get('/paymentMethod', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');
+Route::post('/payment', [PaymentMethodController::class, 'payment']);
 
 //Account
 Route::get('/account', [AccountController::class, 'account'])->name('account');

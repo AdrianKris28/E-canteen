@@ -7,14 +7,14 @@
 @section('content')
 <div class="container">
        <h2 style="text-align: center">History</h2>
-            <form action="#" method="get" style="margin-top: 20px">
+            <form action="/searchHistory" method="get" style="margin-top: 20px">
                 <label for="start">Start date:</label>
-                <input type="date" id="start" name="start-date" class="form-control">
+                <input type="date" id="start" name="startdate" class="form-control">
 
                 <br>
 
                 <label for="start">End date:</label>
-                <input type="date" id="end" name="end-date" class="form-control">
+                <input type="date" id="end" name="enddate" class="form-control">
 
                 <br>
 
@@ -25,31 +25,40 @@
             </form>
 
             <table class="table" style="width: 400px; margin-top: 20px">
-            
-                {{-- If user == seller --}}
+    
+                @if(Auth::user()->role == 'Buyer')
 
-                    {{-- @forelse ($data as $dt) --}} 
+                    @forelse ($data as $dt) 
                         <tr>
                             <td style="padding-right: 0">
-                                <p class="transaction-id">Transaction ID</p>
-                                <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="transaction-img" alt="Gambar" >
+                                <p class="transaction-id">Transaction Id {{$dt->id}}</p>
+                                <img src="{{Storage::url($dt->image)}}" style="width: 75px; height: 75px; border-radius: 10px" alt="Gambar" >
                             </td>
                             <td>
                                 <p style="margin-top: 40px" class="transaction-price">
                                     Total Harga <br>
-                                    Rp xxxxxx
+                                    Rp {{$dt->totalHarga}}
                                 </p>                             
                             </td>
                             <td>
-                                <p class="transaction-date">Transaction Date</p>
-                                <p class="transaction-status">Transaction <br> Status</p>
-                                <a href="/transactionHistoryDetailBuyer" class="btn btn-primary">View</a>
+                                <p class="transaction-date">{{$dt->transactionDate}}</p>
+                                @if($dt->flag == 1)
+                                    <p class="transaction-status" style="color: red">Waiting</p>
+                                @elseif($dt->flag == 2)
+                                    <p class="transaction-status" style="color: #1400FF">Accepted</p>
+                                @elseif($dt->flag == 3)
+                                    <p class="transaction-status" style="color: #40FF21">Finished</p>
+                                @endif
+                                <a href="/transactionHistoryDetailBuyer/{{$dt->id}}" class="btn btn-primary">View</a>
                             </td>
                         </tr> 
-                    {{-- @empty
-                    <td id="datanotfound" colspan="8">No Book Has Been Added</td>
-                    @endforelse --}}
+                    @empty
+                    <tr>
+                        <td id="datanotfound" style="text-align: center">No Transaction Have Occurred</td>
+                    </tr>
+                    @endforelse
 
+                @endif
             
             </table>
 

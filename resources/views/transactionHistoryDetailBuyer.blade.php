@@ -12,52 +12,51 @@
         <div style="max-width: 350px;margin: auto;margin-top: 20px">
 
                 <div style="display: flex;justify-content: space-between">
-                    <p>Transaction ID</p>
-                    <p>Transaction Date</p>
+                    <p>Transaction Id {{$outlet->id}}</p>
+                    <p>{{$outlet->transactionDate}}</p>
                 </div>
         
             
                 <table>
-                    {{-- @foreach ($dataoutlet as $do) --}} 
-
+                
                         <tr>
-                            <td> <p>Store Name</p> </td>
+                            <td> <p>{{$outlet->storeName}}</p> </td>
                         
                                 <table class="table">
                                         
-                                        {{-- @forelse ($data as $dt) --}} 
-                                            <tr>
-                                                <td>
-                                                    <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" style="width: 75px;height:66px;border-radius: 8px" alt="Gambar">
-                                                </td>
-                                                <td>
-                                                    <p>Item Name <br>
-                                                        Rp xxxxxx
-                                                    </p>                             
-                                                </td>
-                                                <td>
-                                                    <p>Quantity</p>
-                                                </td>
-                                            </tr> 
-                                        {{-- @empty
-                                        <td id="datanotfound" colspan="8">No Book Has Been Added</td>
-                                        @endforelse --}}
+                                    @foreach ($product->where('transactionId', $outlet->id) as $pd)
+                                            
+                                        <tr>
+                                            <td>
+                                                <img src="{{Storage::url($pd->image)}}" style="width: 75px;height:66px;border-radius: 8px" alt="Gambar">
+                                            </td>
+                                            <td>
+                                                <p>{{$pd->productName}} <br>
+                                                    Rp {{$pd->price}}
+                                                </p>                             
+                                            </td>
+                                            <td>
+                                                <p>{{$pd->qty}}</p>
+                                            </td>
+                                        </tr> 
+                                        
+                                        @endforeach
 
                                 </table>
 
-                                <div style="display: flex;justify-content: space-between">
+                                {{-- <div style="display: flex;justify-content: space-between">
                                             <p>Subtotal</p>
-                                            <p>Rp xxxxxx</p>
-                                </div>
+                                            <p>Rp {{$outlet->totalHarga}}</p>
+                                </div> --}}
 
                         </tr>       
 
-                    {{-- @endforeach --}}
+               
                 </table>
 
                 <div style="display: flex;justify-content: space-between;margin-top: 20px">
                     <p>TOTAL</p>
-                    <p>Rp xxxxxx</p>
+                    <p>Rp {{$outlet->totalHarga}}</p>
                 </div>
 
                 <div style="display: flex;justify-content: space-between">
@@ -72,7 +71,13 @@
 
                 <div style="display: flex;justify-content: space-between">
                     <p>Transaction Status</p>
-                    <p>PAID</p>
+                    @if($outlet->flag == 1)
+                        <p class="transaction-status" style="color: red">Waiting</p>
+                    @elseif($outlet->flag == 2)
+                        <p class="transaction-status" style="color: #1400FF">Accepted</p>
+                    @elseif($outlet->flag == 3)
+                        <p class="transaction-status" style="color: #40FF21">Finished</p>
+                    @endif
                 </div>
             </div>
 
