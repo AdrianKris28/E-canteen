@@ -137,14 +137,19 @@ class PageController extends Controller
             ->where('transaction.buyerId', Auth::user()->id)
             ->value('transactiondetail.qty');
 
+
         if ($qty == null) {
             $qty = 0;
         }
 
+        $stock = TransactionDetail::join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transactiondetail.productId', '=', $id)
+            ->value('product.stock');
+
         // dd($qty);
 
 
-        return view('menuDetailBuyer', compact('product', 'qty'));
+        return view('menuDetailBuyer', compact('product', 'qty', 'stock'));
     }
 
     public function insideOutlet($id)
@@ -170,6 +175,8 @@ class PageController extends Controller
             ->where('transaction.flag', 0)
             ->where('product.sellerId', '=', $id)
             ->value('transaction.id');
+
+        // dd($transactionId);
 
         $tableNumber = Transaction::join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
@@ -198,7 +205,7 @@ class PageController extends Controller
 
         $currentDateTime = Carbon::now()->toDateTimeString();
 
-        // dd($sellerId);
+        // dd($outletId);
 
         $tid = Transaction::select('transaction.id')->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
@@ -206,6 +213,7 @@ class PageController extends Controller
             ->where('transaction.flag', 0)
             ->where('product.sellerId', '=', $outletId)
             ->value('transaction.id');
+
 
         // dd($tid);
 
@@ -241,12 +249,17 @@ class PageController extends Controller
         // dd($transactionId);
 
         if (
-            TransactionDetail::select('productId')->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            TransactionDetail::withTrashed()->select('productId')->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('productId', '=', $req['productId'])
             ->where('buyerId', '=', Auth::user()->id)
             ->where('transaction.flag', 0)
             ->value('productId') != null
         ) {
+            TransactionDetail::withTrashed()->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+                ->where('productId', '=', $req['productId'])
+                ->where('transaction.flag', 0)
+                ->where('buyerId', '=', Auth::user()->id)->restore();
+
             TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
                 ->where('productId', '=', $req['productId'])
                 ->where('transaction.flag', 0)

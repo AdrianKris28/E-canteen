@@ -42,7 +42,7 @@
         
         <div style="text-align: center;margin-top: 100px">
             <label for="quantity"><h5>Quantity:</h5></label>
-                <input type="number" name="quantity" id="quantity" value="{{$qty}}" style="width:50px;text-align: center;border: 0" min="1">
+                <input type="number" name="quantity" id="quantity" value="{{$qty}}" style="width:50px;text-align: center;border: 0" min="1" max="{{$stock}}">
 
         </div>
             

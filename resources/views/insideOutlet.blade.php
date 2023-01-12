@@ -79,11 +79,16 @@
                     @csrf
                     <input type="hidden" name="transactionId" value="{{$transactionId}}" class="form-control register-input @error('transactionId') is-invalid @enderror">
 
-                    <div class="table-number">
+
+                    <div style="text-align: center;color: red">
+                            <b style="font-size: 13px">Make sure to input your table number correctly</b>
+                    </div>
+
+                    <div class="table-number" style="margin-top: 10px">
                         <label for="name">Table Number:</label>
                         <input type="number" name="tableNumber" value="{{$tableNumber}}" class="form-control register-input @error('tableNumber') is-invalid @enderror" style="width: 70px;text-align: center" min="1" max="20" required>
                     </div>
-                    
+
                         @error('tableNumber')
                         <div style="text-align: right;color: red">
                             <b>Table number has been used</b>
@@ -98,10 +103,18 @@
                         @enderror
 
                     <div class="checkout-container" style="margin-top: 20px">
+                        <input type="hidden" name="totalPrice" value="{{$totalPrice}}" class="form-control register-input @error('totalPrice') is-invalid @enderror">
                         <p>Total: Rp {{$totalPrice}}</p>
                          
                             <button type="submit" class="btn btn-danger" style="border-radius: 10px" id="checkout-btn">Checkout</button>
                     </div>
+
+                    @error('totalPrice')
+                        <div style="text-align: right;color: red">
+                            <b>Total price must be greater than Rp. 0</b>
+                        </div>
+                        @enderror
+                    
                         
                 </form>
         

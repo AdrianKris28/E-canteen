@@ -19,9 +19,16 @@ class CartController extends Controller
             ->where('transaction.id', $transactionId)
             ->where('transactiondetail.productId', $productId)->value('transactiondetail.qty');
 
+
+        $stock = TransactionDetail::join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transactiondetail.productId', '=', $productId)
+            ->value('product.stock');
+
+
         TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transaction.id', $transactionId)
             ->where('transactiondetail.productId', $productId)
+            ->where('transactiondetail.qty', '<', $stock)
             ->update([
                 'qty' => $qty + 1,
             ]);
@@ -43,6 +50,17 @@ class CartController extends Controller
                 'qty' => $qty - 1,
             ]);
 
+        $qty = TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.id', $transactionId)
+            ->where('transactiondetail.productId', $productId)->value('transactiondetail.qty');
+
+        if ($qty == 0) {
+            TransactionDetail::join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+                ->where('transaction.id', $transactionId)
+                ->where('transactiondetail.productId', $productId)
+                ->delete();
+        }
+
         return redirect('/cartPage');
     }
 
@@ -54,13 +72,15 @@ class CartController extends Controller
 
         $req->validate([
             'transactionId' => ['required'],
+            'totalPrice' => ['gt:0'],
         ]);
 
-        if ($req['tableNumber'] != $prevtableNumber) {
-            $req->validate([
-                'tableNumber' => ['unique:transaction'],
-            ]);
-        }
+        // validasi tableNumber gw ilangin dlu, karna nanti kalo buyernya mau beli dari 2 seller atau lebih, dia harus beda tableNumber
+        // if ($req['tableNumber'] != $prevtableNumber) {
+        //     $req->validate([
+        //         'tableNumber' => ['unique:transaction'],
+        //     ]);
+        // }
 
         Transaction::where('id', $req['transactionId'])
             ->update([
@@ -71,6 +91,7 @@ class CartController extends Controller
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transaction.buyerId', Auth::user()->id)
+            ->where('transactiondetail.qty', '!=', 0)
             ->where('transaction.flag', 0)
             ->get();
 
@@ -79,6 +100,7 @@ class CartController extends Controller
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.buyerId', Auth::user()->id)
             ->where('transaction.flag', 0)
+            ->where('transactiondetail.qty', '!=', 0)
             ->where('transaction.tableNumber', '!=', null)
             ->groupBy(['product.sellerId', 'users.name', 'transaction.id'])
             ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
@@ -89,12 +111,12 @@ class CartController extends Controller
 
     public function cartPage()
     {
-        $product = Product::select(DB::raw('product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image,product.sellerId'))
+        $product = Product::select(DB::raw('product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image,product.sellerId, product.stock'))
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('transaction.buyerId', Auth::user()->id)
+            ->where('transactiondetail.qty', '!=', 0)
             ->where('transaction.flag', 0)
-            // ->groupBy('product.id, product.name, product.price, transactiondetail.qty')
             ->get();
 
         $outlet = Product::join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
@@ -102,6 +124,7 @@ class CartController extends Controller
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.buyerId', Auth::user()->id)
             ->where('transaction.flag', 0)
+            ->where('transactiondetail.qty', '!=', 0)
             ->groupBy(['product.sellerId', 'users.name', 'transaction.id'])
             ->get(['product.sellerId', 'users.name', 'transaction.id as transactionId']);
 

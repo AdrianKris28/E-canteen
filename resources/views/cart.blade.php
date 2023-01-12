@@ -39,7 +39,7 @@
                                 <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
                             </a>
 
-                            <input type='number' name='quantity[{{$counter}}]' value='{{$pd->qty}}' class='qty' min="0" id="qty">
+                            <input type='number' name='quantity[{{$counter}}]' value='{{$pd->qty}}' class='qty' min="1" max="{{$pd->stock}}" id="qty" readonly>
                             <input type="hidden" name="productId[{{$counter}}]" value="{{$pd->productId}}">
                             <a href="plusQuantity/{{$ot->transactionId}}/{{$pd->productId}}">
                                 <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
