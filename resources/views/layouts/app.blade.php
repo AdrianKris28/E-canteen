@@ -19,6 +19,8 @@
       data-client-key="SB-Mid-client-WJHRqcy-nGhdG2oG"></script>
     <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
 
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

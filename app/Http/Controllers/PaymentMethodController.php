@@ -17,6 +17,7 @@ class PaymentMethodController extends Controller
 
     public function payment(Request $req)
     {
+        // dd($req);
         Transaction::where('transaction.id', $req['transactionId'])
             ->update([
                 'flag' => 1,

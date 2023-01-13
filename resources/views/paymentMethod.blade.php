@@ -6,9 +6,9 @@
 
 
 @section('content')
-    <form action="/payment" id="payment-method-form" method="POST">
+    <form action="/payment" id="payment-method-form" method="POST" id="paymentForm">
         @csrf
-
+        <input type="hidden" name="json" id="json_callback">
         <input type="hidden" name="transactionId" value="{{$transactionId}}">
         
         <div class="order-type-group">
@@ -62,31 +62,38 @@
             </div>
         </div>
         
-        <button class="btn" type="submit" id="payment-btn">Select Payment Method</button>
+        {{-- <button class="btn" type="submit" id="payment-btn">Select Payment Method</button> --}}
         
-    </form>
+      </form>
 
-    <button id="pay-button">Pay!</button>
+      <button id="payment-btn">Pay!</button>
+
 @endsection
 
 @section('javascript')
     <script type="text/javascript">
       // For example trigger on button clicked, or any time you need
-      var payButton = document.getElementById('pay-button');
+      var payButton = document.getElementById('payment-btn');
       payButton.addEventListener('click', function () {
         // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
         window.snap.pay('{{$snapToken}}', {
           onSuccess: function(result){
             /* You may add your own implementation here */
             alert("payment success!"); console.log(result);
+            $('#paymentForm').submit();
+            send_response_to_form(result);
           },
           onPending: function(result){
             /* You may add your own implementation here */
             alert("wating your payment!"); console.log(result);
+            $('#paymentForm').submit();
+            send_response_to_form(result);
           },
           onError: function(result){
             /* You may add your own implementation here */
             alert("payment failed!"); console.log(result);
+            $('#paymentForm').submit();
+            send_response_to_form(result);
           },
           onClose: function(){
             /* You may add your own implementation here */
@@ -94,5 +101,11 @@
           }
         })
       });
+
+      function send_response_to_form(result){
+        document.getElementById('json_callback').value = JSON.stringify(result);
+        // alert(document.getElementById('json_callback').value);
+      }
+
     </script>
 @endsection
