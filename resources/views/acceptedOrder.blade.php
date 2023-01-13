@@ -11,140 +11,61 @@
         <a href="{{route('acceptedOrder')}}"><button class="btn" id="accepted-btn">Accepted</button></a>
     </div>
 
-    <form action="" class="order-card">
-        <div class="order-header">
-            <h6>Transaction ID</h6>
-            <h6>Transaction Date</h6>
-        </div>
 
-        <table class="table table-borderless" id="order-detail">
-            <tr class="table-head">
-                <td>Qty</td>
-                <td>Product Name</td>
-                <td>Price</td>
-            </tr>
+    @if(Auth::user()->role == 'Seller')
 
-            <tr>
-                <td>x1</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
+    @forelse ($data as $dt) 
+        <form action="/finishDelivery" class="order-card" method="POST">
+            @csrf
+            <input type="hidden" name="transactionId" value="{{$dt->id}}">
+            <div class="order-header">
+                <h6>Transaction ID &nbsp {{$dt->id}}</h6>
+                <h6>{{$dt->updated_at}}</h6>
+            </div>
 
-            <tr>
-                <td>x2</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
+            <div class="order-header">
+                <h6>Buyer ID &nbsp {{$dt->buyerId}}</h6>
+                <h6>Table Number: &nbsp {{$dt->tableNumber}}</h6>
+            </div>
 
-            <tr>
-                <td>x1</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
+            <table class="table table-borderless" id="order-detail">
+                <tr class="table-head">
+                    <td>Qty</td>
+                    <td>Product Name</td>
+                    <td>Price</td>
+                </tr>
 
-            <tr class="table-total">
-                <td colspan="2">Total</td>
-                <td>Rp xxxxx</td>
-            </tr>
+                @forelse ($countData->where('transactionId', '=', $dt->id) as $count)
+                {{-- $product->where('sellerId', '=', $ot->sellerId) as $pd)  --}}
+                    <tr>
+                        <td>x{{$count->qty}}</td>
+                        <td>{{$count->name}}</td>
+                        <td>Rp {{$count->price * $count->qty}}</td>
+                    </tr>
+                @empty
+                
+                @endforelse 
+                
+                <tr class="table-total">
+                    <td colspan="2">Total</td>
+                    <td>Rp &nbsp {{$dt->totalHarga}}</td>
+                </tr>
 
-            <tr>
-                <td colspan="2">Dine In / Take Away</td>
-                <td>Take Away</td>
-            </tr>
-        </table>
+                <tr>
+                    <td colspan="2">Dine In / Take Away</td>
+                    <td>Take Away</td>
+                </tr>
+            </table>
 
-        <button class="btn" id="finish-btn">FINISH DELIVERY</button>
-    </form>
+            <button type="submit" class="btn" id="finish-btn">FINISH DELIVERY</button>
+        </form>
+        
+        @empty
+        <tr>
+            <td id="datanotfound" style="text-align: center">No Transaction Have Occurred</td>
+        </tr>
+        @endforelse
 
-    <form action="" class="order-card">
-        <div class="order-header">
-            <h6>Transaction ID</h6>
-            <h6>Transaction Date</h6>
-        </div>
-
-        <table class="table table-borderless" id="order-detail">
-            <tr class="table-head">
-                <td>Qty</td>
-                <td>Product Name</td>
-                <td>Price</td>
-            </tr>
-
-            <tr>
-                <td>x1</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr>
-                <td>x2</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr>
-                <td>x1</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr class="table-total">
-                <td colspan="2">Total</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr>
-                <td colspan="2">Dine In / Take Away</td>
-                <td>Take Away</td>
-            </tr>
-        </table>
-
-        <button class="btn" id="finish-btn">FINISH DELIVERY</button>
-    </form>
-
-    <form action="" class="order-card">
-        <div class="order-header">
-            <h6>Transaction ID</h6>
-            <h6>Transaction Date</h6>
-        </div>
-
-        <table class="table table-borderless" id="order-detail">
-            <tr class="table-head">
-                <td>Qty</td>
-                <td>Product Name</td>
-                <td>Price</td>
-            </tr>
-
-            <tr>
-                <td>x1</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr>
-                <td>x2</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr>
-                <td>x1</td>
-                <td>Product Name</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr class="table-total">
-                <td colspan="2">Total</td>
-                <td>Rp xxxxx</td>
-            </tr>
-
-            <tr>
-                <td colspan="2">Dine In / Take Away</td>
-                <td>Take Away</td>
-            </tr>
-        </table>
-
-        <button class="btn" id="finish-btn">FINISH DELIVERY</button>
-    </form>
-    
+    @endif
 
 @endsection

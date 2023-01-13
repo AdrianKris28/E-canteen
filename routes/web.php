@@ -43,7 +43,7 @@ Route::post('/addProduct', [PageController::class, 'addProduct']);
 
 Route::get('/salesSeller', [PageController::class, 'salesSeller']);
 Route::get('/transactionHistorySeller', [PageController::class, 'transactionHistorySeller']);
-Route::get('/transactionHistoryDetailSeller', [PageController::class, 'transactionHistoryDetailSeller']);
+Route::get('/transactionHistoryDetailSeller/{id}', [PageController::class, 'transactionHistoryDetailSeller']);
 Route::get('/transactionHistoryBuyer', [PageController::class, 'transactionHistoryBuyer'])->name('transactionHistory');
 Route::get('/transactionHistoryDetailBuyer/{id}', [PageController::class, 'transactionHistoryDetailBuyer']);
 
@@ -80,6 +80,9 @@ Route::post('/editProfile', [AccountController::class, 'editProfile']);
 
 //Incoming Order
 Route::get('/incomingOrder', [OrderController::class, 'incomingOrder'])->name('incomingOrder');
+Route::post('/acceptOrder', [OrderController::class, 'acceptOrder']);
 
 //Accepted Order
 Route::get('/acceptedOrder', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');
+Route::post('/finishDelivery', [OrderController::class, 'finishDelivery']);
+

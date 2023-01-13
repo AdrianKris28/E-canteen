@@ -32,7 +32,7 @@
                                             </td>
                                             <td>
                                                 <p>{{$pd->productName}} <br>
-                                                    Rp {{$pd->price}}
+                                                    Rp &nbsp {{$pd->price}}
                                                 </p>                             
                                             </td>
                                             <td>
@@ -56,7 +56,7 @@
 
                 <div style="display: flex;justify-content: space-between;margin-top: 20px">
                     <p>TOTAL</p>
-                    <p>Rp {{$outlet->totalHarga}}</p>
+                    <p>Rp &nbsp {{$outlet->totalHarga}}</p>
                 </div>
 
                 <div style="display: flex;justify-content: space-between">

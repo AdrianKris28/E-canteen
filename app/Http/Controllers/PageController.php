@@ -374,12 +374,50 @@ class PageController extends Controller
     public function transactionHistorySeller()
     {
 
-        return view('transactionHistorySeller');
+        $currentDate = date('Y-m-d');
+
+        // $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
+        //     ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+        //     ->join('product', 'product.id', '=', 'transactiondetail.productId')
+        //     ->join('users', 'users.id', '=', 'product.sellerId')
+        //     ->where('transaction.buyerId', Auth::user()->id)
+        //     ->where('transaction.transactionDate', $currentDate)
+        //     ->where('transaction.flag', '=', 3)
+        //     ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
+
+
+
+            $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.flag', '=', 3)
+            ->where('product.sellerId', Auth::user()->id)
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag'])
+            ->orderBy('transaction.updated_at', 'ASC')->get();
+    
+
+
+        // dd($data);
+        return view('transactionHistorySeller', compact('data'));
     }
 
-    public function transactionHistoryDetailSeller()
+    public function transactionHistoryDetailSeller($id)
     {
-        return view('transactionHistoryDetailSeller');
+        $outlet = Transaction::select(DB::raw('transaction.id, transaction.transactionDate,  users.name as storeName, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.flag, users.image'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('users', 'users.id', '=', 'product.sellerId')
+            ->where('transaction.id', $id)
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'users.name', 'users.image', 'transaction.flag'])->first();
+
+        $product = Product::select(DB::raw('transactiondetail.transactionId, product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image'))
+            ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.id', $id)->get();
+
+        // dd($product);
+
+        return view('transactionHistoryDetailSeller', compact('outlet', 'product'));
     }
 
     public function transactionHistoryBuyer()
@@ -392,15 +430,19 @@ class PageController extends Controller
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.buyerId', Auth::user()->id)
             ->where('transaction.transactionDate', $currentDate)
+            ->where('transaction.flag', '!=', 0)
             ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
 
         // dd($data);
         return view('transactionHistoryBuyer', compact('data'));
     }
-
+    
     public function searchHistory(Request $req)
     {
-        $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
+        // dd($data);
+        
+        if(Auth::user()->role == 'Buyer'){
+            $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->join('users', 'users.id', '=', 'product.sellerId')
@@ -408,10 +450,24 @@ class PageController extends Controller
             ->where('transactionDate', '>=', $req['startdate'])
             ->where('transactionDate', '<=', $req['enddate'])
             ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
-
-        // dd($data);
-
-        return view('transactionHistoryBuyer', compact('data'));
+            
+            return view('transactionHistoryBuyer', compact('data'));
+        }
+        else{
+            
+            $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.flag', '=', 3)
+            ->where('product.sellerId', Auth::user()->id)
+            ->where('transactionDate', '>=', $req['startdate'])
+            ->where('transactionDate', '<=', $req['enddate'])
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag'])
+            ->orderBy('transaction.updated_at', 'ASC')->get();
+    
+            return view('transactionHistorySeller', compact('data'));
+        }
+        
     }
 
     public function transactionHistoryDetailBuyer($id)
