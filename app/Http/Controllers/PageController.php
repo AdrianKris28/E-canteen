@@ -156,7 +156,9 @@ class PageController extends Controller
     {
         $namaOutlet = User::where('id', '=', $id)->value('name');
 
-        $product = Product::where('sellerId', '=', $id)->get();
+        $product = Product::where('sellerId', '=', $id)
+            ->where('stock', '!=', 0)
+            ->get();
 
         $totalHarga = Product::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga'))
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
@@ -246,7 +248,7 @@ class PageController extends Controller
             ->where('transaction.flag', 0)
             ->value('id');
 
-        // dd($transactionId);
+        // dd($currentDateTime, $transactionId);
 
         if (
             TransactionDetail::withTrashed()->select('productId')->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
@@ -382,11 +384,14 @@ class PageController extends Controller
 
     public function transactionHistoryBuyer()
     {
+        $currentDate = date('Y-m-d');
+
         $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.buyerId', Auth::user()->id)
+            ->where('transaction.transactionDate', $currentDate)
             ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
 
         // dd($data);
