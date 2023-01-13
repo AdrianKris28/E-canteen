@@ -156,13 +156,48 @@ class CartController extends Controller
             $count++;
         }
 
-        // Transaction::where('transaction.id', $req['transactionId'])
-        //     ->update([
-        //         'flag' => 1,
-        //     ]);
-
         $transactionId = $req['transactionId'];
 
-        return view('paymentMethod', compact('transactionId'));
+        $productDetail = TransactionDetail::join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transactiondetail.transactionId', $req['transactionId'])->get();
+        // dd($productDetail);
+
+        $grossAmount = TransactionDetail::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalPrice, transaction.id'))
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
+            ->where('transaction.id', $transactionId)
+            ->groupBy('transaction.id')
+            ->first();
+
+        // dd($grossAmount);   
+
+        //buatPayment pake midtrans
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-jJ0nokqy4qYBS_VXkViHx8_U';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => $grossAmount['totalPrice'],
+            ),
+            'customer_details' => array(
+                'first_name' => Auth::user()->name,
+                // 'last_name' => 'test',
+                'email' => Auth::user()->email,
+                'phone' => Auth::user()->phone,
+            ),
+            'product_details' => $productDetail,
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        return view('paymentMethod', compact('transactionId', 'snapToken'));
     }
 }

@@ -13,10 +13,10 @@
         
         <div class="order-type-group">
             <p>Dine In / Take Away</p>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" name="orderType" required>
                 {{-- <option selected>Open this select menu</option> --}}
-                <option id="order-type-option" value="1" selected>Dine In</option>
-                <option class="order-type-option" value="2">Take Away</option>
+                <option id="order-type-option" value="Dine In" selected>Dine In</option>
+                <option class="order-type-option" value="Take Away">Take Away</option>
               </select>
         </div>
     
@@ -65,4 +65,34 @@
         <button class="btn" type="submit" id="payment-btn">Select Payment Method</button>
         
     </form>
+
+    <button id="pay-button">Pay!</button>
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+      // For example trigger on button clicked, or any time you need
+      var payButton = document.getElementById('pay-button');
+      payButton.addEventListener('click', function () {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay('{{$snapToken}}', {
+          onSuccess: function(result){
+            /* You may add your own implementation here */
+            alert("payment success!"); console.log(result);
+          },
+          onPending: function(result){
+            /* You may add your own implementation here */
+            alert("wating your payment!"); console.log(result);
+          },
+          onError: function(result){
+            /* You may add your own implementation here */
+            alert("payment failed!"); console.log(result);
+          },
+          onClose: function(){
+            /* You may add your own implementation here */
+            alert('you closed the popup without finishing the payment');
+          }
+        })
+      });
+    </script>
 @endsection
