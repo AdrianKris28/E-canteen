@@ -3,16 +3,15 @@
 @section('content')
 <div class="container">
        <h2 style="text-align: center">Sales</h2>
-            <form action="#" method="get" style="margin-top: 20px">
-                   
 
+            <form action="/searchSales" method="get" style="margin-top: 20px">
                 <label for="start">Start date:</label>
-                <input type="date" id="start" name="start-date" class="form-control">
+                <input type="date" id="start" name="startdate" class="form-control" required>
 
                 <br>
 
                 <label for="start">End date:</label>
-                <input type="date" id="end" name="end-date" class="form-control">
+                <input type="date" id="end" name="enddate" class="form-control" required>
 
                 <br>
 
@@ -25,26 +24,28 @@
 
             <table class="table" style="width: 300px;margin-top: 20px">
 
-                    {{-- @forelse ($data as $dt) --}} 
+                    @forelse ($product as $pd) 
                         <tr>
                             <td>
-                                <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" style="width: 109px;height:100px;border-radius: 8px" alt="Gambar">
-                                <h5 style="margin-top: 5px">Product Name</h5>
+                                <img src="{{ Storage::url($pd->image)}}" style="width: 109px;height:100px;border-radius: 8px" alt="Gambar">
+                                <h5 style="margin-top: 5px">{{$pd->name}}</h5>
                             </td>
                             <td>
                                 <h3> 
                                     Terjual: <br>
-                                    xxx
+                                    {{$pd->productSales}}
                                 </h3>                      
                             </td>
                         </tr> 
-                    {{-- @empty
-                    <td id="datanotfound" colspan="8">No Book Has Been Added</td>
-                    @endforelse --}}
+                    @empty
+                   
+                        <p style="text-align: center; margin-top: 20px">There is no sales today</p>
+                   
+                    @endforelse
             
             </table>
 
-            <h3 style="text-align: center">Total Sales: Rp xxxxxx</h3>
+            <h3 style="text-align: center">Total Sales: Rp {{$totalSales}}</h3>
 
 </div>
 @endsection
