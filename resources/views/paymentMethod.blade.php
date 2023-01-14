@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/payment.css') }}">
 @endsection
 
-
 @section('content')
     <form action="/payment" id="payment-method-form" method="POST" id="paymentForm">
         @csrf
@@ -17,7 +16,7 @@
                 {{-- <option selected>Open this select menu</option> --}}
                 <option id="order-type-option" value="Dine In" selected>Dine In</option>
                 <option class="order-type-option" value="Take Away">Take Away</option>
-              </select>
+            </select>
         </div>
     
         <div class="payment-method-group">

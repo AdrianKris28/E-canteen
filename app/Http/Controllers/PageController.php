@@ -478,7 +478,7 @@ class PageController extends Controller
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.buyerId', Auth::user()->id)
-            ->where('transaction.transactionDate', $currentDate)
+            // ->where('transaction.transactionDate', $currentDate)
             ->where('transaction.flag', '!=', 0)
             ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
 
@@ -496,6 +496,7 @@ class PageController extends Controller
                 ->join('product', 'product.id', '=', 'transactiondetail.productId')
                 ->join('users', 'users.id', '=', 'product.sellerId')
                 ->where('transaction.buyerId', Auth::user()->id)
+                ->where('transaction.flag', '!=', 0)
                 ->where('transactionDate', '>=', $req['startdate'])
                 ->where('transactionDate', '<=', $req['enddate'])
                 ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();

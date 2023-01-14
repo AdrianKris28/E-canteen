@@ -1,0 +1,19 @@
+table tr td #product-name{
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+table tr .sales-detail p{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+table tr .sales-detail{
+    vertical-align: middle;
+}
+
+.total-sales{
+    font-weight: 600;
+    font-size: 20px;
+}

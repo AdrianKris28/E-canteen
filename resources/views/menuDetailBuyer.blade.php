@@ -1,28 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
+@extends('layouts.app')
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/menu-detail-buyer.css') }}">
+@endsection
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-</head>
-<body>
+@section('content')
         
      <form action="/addToCart" method="post">
         @csrf
@@ -40,19 +23,33 @@
             <p style="margin-left: 10px">{{$pd->description}}</p>
         </div>
         
-        <div style="text-align: center;margin-top: 100px">
+        {{-- <div style="text-align: center;margin-top: 100px">
             <label for="quantity"><h5>Quantity:</h5></label>
                 <input type="number" name="quantity" id="quantity" value="{{$qty}}" style="width:50px;text-align: center;border: 0" min="1" max="{{$stock}}">
 
+        </div> --}}
+
+        <div style="text-align: center;margin-top: 100px" class="menu-detail-group cart-qty">
+            {{-- <label for="stock"><h5>Stock:</h5></label>
+            <input type="number" name="stock" id="stock" value="{{$pd->stock}}" style="width:50px;text-align: center;border: 0" min="1"> --}}
+            <label for="quantity"><h5>Quantity:</h5></label>
+            <br>
+            <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
+            <input type='number' name="quantity" id="stock" value="{{$qty}}" style="width:50px;text-align: center;border: 0" class='qty' min="0" max="{{$stock}}">
+            <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
+       
         </div>
+            
             
         @endforeach
 
-        <button type="submit" class="btn btn-primary" style="display: flex;margin: auto;padding: 10px 40px 10px 40px;margin-top: 20px">Add to Cart</button>
-                
+        <button type="submit" class="btn" id="add-to-cart-btn" style="display: flex;margin: auto;padding: 10px 40px 10px 40px;margin-top: 20px">Add to Cart</button>
+
         </form>
     
 
-</body>
-</html>
+@endsection
 
+@section('javascript')
+    <script src="{{ asset('js/cart.js') }}"></script>
+@endsection

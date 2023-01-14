@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/sales-seller.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
        <h2 style="text-align: center">Sales</h2>
@@ -27,14 +31,14 @@
                     @forelse ($product as $pd) 
                         <tr>
                             <td>
-                                <img src="{{ Storage::url($pd->image)}}" style="width: 109px;height:100px;border-radius: 8px" alt="Gambar">
-                                <h5 style="margin-top: 5px">{{$pd->name}}</h5>
+                                <img src="{{ Storage::url($pd->image)}}" style="width: 109px;height:112px;border-radius: 10px" alt="Gambar">
+                                <p id="product-name">{{$pd->name}}</p>
                             </td>
-                            <td>
-                                <h3> 
+                            <td class="sales-detail">
+                                <p> 
                                     Terjual: <br>
                                     {{$pd->productSales}}
-                                </h3>                      
+                                </p>                      
                             </td>
                         </tr> 
                     @empty
@@ -45,7 +49,7 @@
             
             </table>
 
-            <h3 style="text-align: center">Total Sales: Rp {{$totalSales}}</h3>
+            <h3 style="text-align: center" class="total-sales">Total Sales: Rp {{$totalSales}}</h3>
 
 </div>
 @endsection
