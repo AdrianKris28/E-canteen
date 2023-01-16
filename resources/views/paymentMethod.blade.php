@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <form action="/payment" id="payment-method-form" method="POST" id="paymentForm">
+    <form action="/payment" method="POST" id="paymentForm">
         @csrf
         <input type="hidden" name="json" id="json_callback">
         <input type="hidden" name="transactionId" value="{{$transactionId}}">
