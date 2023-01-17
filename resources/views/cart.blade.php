@@ -32,7 +32,7 @@
                         </td>
                         <td class="cart-detail">
                             <p class="food-name">{{$pd->productName}}</p>
-                            <p class="food-price">Rp. {{$pd->price}}</p>     
+                            <p class="food-price">Rp. @convert($pd->price)</p>     
                         </td>
                         <td class="cart-qty">
                             <a href="/minusQuantity/{{$ot->transactionId}}/{{$pd->productId}}">
@@ -59,7 +59,7 @@
                     <td colspan="2">
                         Total
                     </td>
-                    <td>Rp {{$grandTotal}}</td>
+                    <td>Rp @convert($grandTotal)</td>
                 </tr>
                 <tr>
                     <td colspan="2">

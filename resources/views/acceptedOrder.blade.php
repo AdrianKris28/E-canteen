@@ -40,7 +40,7 @@
                     <tr>
                         <td>x{{$count->qty}}</td>
                         <td>{{$count->name}}</td>
-                        <td>Rp {{$count->price * $count->qty}}</td>
+                        <td>Rp @convert($count->price * $count->qty)</td>
                     </tr>
                 @empty
                 
@@ -48,7 +48,7 @@
                 
                 <tr class="table-total">
                     <td colspan="2">Total</td>
-                    <td>Rp &nbsp {{$dt->totalHarga}}</td>
+                    <td>Rp &nbsp; @convert($dt->totalHarga)</td>
                 </tr>
 
                 <tr>

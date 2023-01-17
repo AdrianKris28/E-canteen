@@ -38,7 +38,7 @@
                         <td>
                             <p style="margin-top: 40px" class="transaction-price">
                                 Total Harga <br>
-                                Rp &nbsp {{$dt->totalHarga}}
+                                Rp &nbsp; @convert($dt->totalHarga)
                             </p>                             
                         </td>
                         <td>

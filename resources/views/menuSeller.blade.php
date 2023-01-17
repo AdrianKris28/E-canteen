@@ -45,7 +45,7 @@
                                     {{$pd->name}} <br>
                                 </span>
                                 <span class="menu-price">
-                                    Rp. {{$pd->price}}
+                                    Rp. @convert($pd->price)
                                 </span>
                             </td>
                             <td class="menu-stock">

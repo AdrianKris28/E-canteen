@@ -27,7 +27,7 @@
             
         </div>
         
-        <div style="text-align: center;margin-top: 100px" class="menu-detail-group cart-qty">
+        <div style="text-align: center;margin-top: 50px" class="menu-detail-group cart-qty">
             {{-- <label for="stock"><h5>Stock:</h5></label>
             <input type="number" name="stock" id="stock" value="{{$pd->stock}}" style="width:50px;text-align: center;border: 0" min="1"> --}}
             <label for="stock"><h5>Stock:</h5></label>

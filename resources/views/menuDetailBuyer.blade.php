@@ -18,7 +18,7 @@
         <div style="margin-top: 30px">
             <div>
                 <h2 style="margin-left: 9px">{{$pd->name}}</h2>
-                <h2 style="margin-left: 10px">Rp. {{$pd->price}}</h2>
+                <h2 style="margin-left: 10px">Rp. @convert($pd->price)</h2>
             </div>
             <p style="margin-left: 10px">{{$pd->description}}</p>
         </div>
@@ -29,13 +29,13 @@
 
         </div> --}}
 
-        <div style="text-align: center;margin-top: 100px" class="menu-detail-group cart-qty">
+        <div style="text-align: center;margin-top: 50px" class="menu-detail-group cart-qty">
             {{-- <label for="stock"><h5>Stock:</h5></label>
             <input type="number" name="stock" id="stock" value="{{$pd->stock}}" style="width:50px;text-align: center;border: 0" min="1"> --}}
             <label for="quantity"><h5>Quantity:</h5></label>
             <br>
             <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
-            <input type='number' name="quantity" id="stock" value="{{$qty}}" style="width:50px;text-align: center;border: 0" class='qty' min="0" max="{{$stock}}">
+            <input type='number' name="quantity" id="stock" value="{{$qty}}" style="width:50px;text-align: center;border: 0" class='qty' min="1" max="{{$stock}}">
             <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
        
         </div>

@@ -49,7 +49,7 @@
             
             </table>
 
-            <h3 style="text-align: center" class="total-sales">Total Sales: Rp {{$totalSales}}</h3>
+            <h3 style="text-align: center" class="total-sales">Total Sales: Rp @convert($totalSales)</h3>
 
 </div>
 @endsection

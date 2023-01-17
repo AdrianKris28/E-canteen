@@ -5,7 +5,8 @@
 @endsection --}}
 
 @section('content')
-<div class="container" style="border: solid black 1px;border-radius: 7px">
+<div class="container">
+    <div style="border: solid black 1px;border-radius: 7px">
        <h2 style="text-align: center">Detail Transaction</h2>
 
        <div style="max-width: 350px;margin: auto;margin-top: 20px">
@@ -25,7 +26,7 @@
                         </td>
                         <td>
                             <p>{{$pd->productName}} <br>
-                                Rp &nbsp {{$pd->price}}
+                                Rp &nbsp; @convert($pd->price)
                             </p>                             
                         </td>
                         <td>
@@ -37,7 +38,7 @@
 
             <div style="display: flex;justify-content: space-between">
                 <p>TOTAL</p>
-                <p>Rp &nbsp {{$outlet->totalHarga}}</p>
+                <p>Rp &nbsp; @convert($outlet->totalHarga)</p>
             </div>
 
             <div style="display: flex;justify-content: space-between">
@@ -51,8 +52,7 @@
             </div>
 
             <div style="display: flex;justify-content: space-between">
-                <p>Transaction Status</p>
-                <p>
+                <p>Transaction Status</p>              
                     @if($outlet->flag == 1)
                         <p class="transaction-status" style="color: red">Waiting</p>
                     @elseif($outlet->flag == 2)
@@ -60,12 +60,11 @@
                     @elseif($outlet->flag == 3)
                         <p class="transaction-status" style="color: #40FF21">Finished</p>
                     @endif
-                </p>
             </div>
         </div>
-        
     </div>
-    <div style="display: flex;justify-content: flex-end;margin-top: 15px">
+</div>
+    <div style="display: flex;justify-content: flex-end;margin-top: 15px;margin-right: 15px">
         <a href="/transactionHistorySeller" class="btn btn-danger">Back</a>
     </div>
 @endsection

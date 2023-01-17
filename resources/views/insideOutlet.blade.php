@@ -49,7 +49,7 @@
                                     {{$pd->name}} <br>
                                 </span>
                                 <span class="menu-price">
-                                    Rp. {{$pd->price}}
+                                    Rp. @convert($pd->price)
                                 </span>
                             </td>
                             <td class="menu-stock">
@@ -104,7 +104,7 @@
 
                     <div class="checkout-container" style="margin-top: 20px">
                         <input type="hidden" name="totalPrice" value="{{$totalPrice}}" class="form-control register-input @error('totalPrice') is-invalid @enderror">
-                        <p>Total: Rp {{$totalPrice}}</p>
+                        <p>Total: Rp @convert($totalPrice)</p>
                          
                             <button type="submit" class="btn btn-danger" style="border-radius: 10px" id="checkout-btn">Checkout</button>
                     </div>
