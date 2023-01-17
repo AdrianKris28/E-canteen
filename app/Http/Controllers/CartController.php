@@ -134,27 +134,33 @@ class CartController extends Controller
 
     public function checkoutCart(Request $req)
     {
+
+        $quantity = $req['quantity'];
+        $productId = $req['productId'];
+
+        // dd($quantity);
+
         // dd($req);
 
-        $count = 0;
+        // $count = 0;
 
-        foreach ($req['productId'] as $pd) {
+        // foreach ($req['productId'] as $pd) {
 
-            $stock = Product::where('product.id', $pd)->value('stock');
+        //     $stock = Product::where('product.id', $pd)->value('stock');
 
-            TransactionDetail::where('transactiondetail.productId', $pd)
-                ->where('transactiondetail.transactionId', $req['transactionId'])
-                ->update([
-                    'qty' => $req['quantity.' . $count],
-                ]);
+        //     TransactionDetail::where('transactiondetail.productId', $pd)
+        //         ->where('transactiondetail.transactionId', $req['transactionId'])
+        //         ->update([
+        //             'qty' => $req['quantity.' . $count],
+        //         ]);
 
-            Product::where('product.id', $pd)
-                ->update([
-                    'stock' => $stock - $req['quantity.' . $count],
-                ]);
+        //     Product::where('product.id', $pd)
+        //         ->update([
+        //             'stock' => $stock - $req['quantity.' . $count],
+        //         ]);
 
-            $count++;
-        }
+        //     $count++;
+        // }
 
         $transactionId = $req['transactionId'];
 
@@ -198,6 +204,6 @@ class CartController extends Controller
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        return view('paymentMethod', compact('transactionId', 'snapToken'));
+        return view('paymentMethod', compact('transactionId', 'snapToken', 'quantity', 'productId'));
     }
 }

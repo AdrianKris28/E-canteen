@@ -7,6 +7,21 @@
 @section('content')
     <form action="/payment" method="POST" id="paymentForm">
         @csrf
+   
+        @php
+            $counter = 0;    
+        @endphp
+
+        @foreach ($productId as $pd)
+            
+        <input type="hidden" name="quantity[{{$counter}}]" value="{{$quantity[$counter]}}">
+        <input type="hidden" name="productId[{{$counter}}]" value="{{$productId[$counter]}}">
+
+          @php
+              $counter++;    
+          @endphp
+        @endforeach
+
         <input type="hidden" name="json" id="json_callback">
         <input type="hidden" name="transactionId" value="{{$transactionId}}">
         
@@ -79,20 +94,18 @@
           onSuccess: function(result){
             /* You may add your own implementation here */
             alert("payment success!"); console.log(result);
-            $('#paymentForm').submit();
             send_response_to_form(result);
           },
           onPending: function(result){
             /* You may add your own implementation here */
-            alert("wating your payment!"); console.log(result);
-            $('#paymentForm').submit();
-            send_response_to_form(result);
+            // alert("wating your payment!"); console.log(result);
+            alert('you closed the popup without finishing the payment');
+            // send_response_to_form(result);
           },
           onError: function(result){
             /* You may add your own implementation here */
             alert("payment failed!"); console.log(result);
-            $('#paymentForm').submit();
-            send_response_to_form(result);
+            // send_response_to_form(result);
           },
           onClose: function(){
             /* You may add your own implementation here */
@@ -104,6 +117,7 @@
       function send_response_to_form(result){
         document.getElementById('json_callback').value = JSON.stringify(result);
         // alert(document.getElementById('json_callback').value);
+         $('#paymentForm').submit();
       }
 
     </script>

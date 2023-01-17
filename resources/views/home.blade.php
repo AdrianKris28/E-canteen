@@ -45,9 +45,10 @@
               </div>
                       <p style="margin-top: 30px"> There is no outlet yet </p>
                   @endforelse
+@if(session('alert-success'))
+              <script>alert("{{session('alert-success')}}")</script>
+@endif
 
-
-       
         @else
           
         {{-- Ini Menu Seller --}}

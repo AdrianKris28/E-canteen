@@ -16,7 +16,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
             $table->foreignId('buyerId')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('paymentMethodId')->nullable(true)->references('id')->on('payment')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('paymentMethod', 20)->nullable(true);
             $table->integer('flag')->length(1);
             $table->string('orderType', 10)->nullable(true);
             $table->integer('tableNumber')->nullable(true)->length(5);

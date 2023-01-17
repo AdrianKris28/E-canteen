@@ -11,7 +11,7 @@ class Transaction extends Model
     protected $table = 'transaction';
     protected $fillable = [
         'buyerId',
-        'paymentMethodId',
+        'paymentMethod',
         'flag',
         'orderType',
         'tableNumber',
@@ -23,10 +23,6 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function payment()
-    {
-        return $this->belongsTo(Payment::class);
-    }
 
     public function transactiondetail()
     {

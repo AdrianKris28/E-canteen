@@ -480,7 +480,9 @@ class PageController extends Controller
             ->where('transaction.buyerId', Auth::user()->id)
             // ->where('transaction.transactionDate', $currentDate)
             ->where('transaction.flag', '!=', 0)
-            ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])
+            ->orderBy('transaction.id', 'DESC')
+            ->get();
 
         // dd($data);
         return view('transactionHistoryBuyer', compact('data'));
@@ -499,7 +501,9 @@ class PageController extends Controller
                 ->where('transaction.flag', '!=', 0)
                 ->where('transactionDate', '>=', $req['startdate'])
                 ->where('transactionDate', '<=', $req['enddate'])
-                ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
+                ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])
+                ->orderBy('transaction.id', 'DESC')
+                ->get();
 
             return view('transactionHistoryBuyer', compact('data'));
         } else {
