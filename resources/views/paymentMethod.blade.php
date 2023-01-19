@@ -34,7 +34,7 @@
             </select>
         </div>
     
-        <div class="payment-method-group">
+        {{-- <div class="payment-method-group">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                 <label class="form-check-label" for="flexRadioDefault1">
@@ -74,13 +74,13 @@
                 </label>
                 <img src="" alt="">
             </div>
-        </div>
+        </div> --}}
         
         {{-- <button class="btn" type="submit" id="payment-btn">Select Payment Method</button> --}}
         
       </form>
 
-      <button id="payment-btn">Pay!</button>
+      <button id="payment-btn" style="margin-top: 50px">Pay!</button>
 
 @endsection
 
