@@ -48,7 +48,7 @@
 
             <div style="display: flex;justify-content: space-between">
                 <p>Payment Method</p>
-                <p>GOPAY</p>
+                <p>{{$outlet->paymentMethod}}</p>
             </div>
 
             <div style="display: flex;justify-content: space-between">
