@@ -44,6 +44,11 @@
                             <a href="plusQuantity/{{$ot->transactionId}}/{{$pd->productId}}">
                                 <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
                             </a>
+
+                            <a href="/deleteCart/{{$ot->transactionId}}/{{$pd->productId}}" style="margin-left: 10px">
+                                    {{-- Delete --}}
+                                    <img src="{{ Storage::url("images\delete-icon.png") }}" style="width: 20px;height: 20px" alt="delete-icon">
+                            </a>
                             
                             @php
                                 $counter++;

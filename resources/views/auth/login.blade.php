@@ -75,4 +75,8 @@
         </div>
     </div>
 </div>
+
+{{-- @if(session('alert-failed'))
+    <script>alert("{{session('alert-failed')}}")</script>
+@endif --}}
 @endsection

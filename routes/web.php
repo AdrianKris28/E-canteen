@@ -71,6 +71,7 @@ Route::post('/checkoutCart', [CartController::class, 'checkoutCart']);
 
 Route::get('/plusQuantity/{transactionId}/{productId}', [CartController::class, 'plusQuantity']);
 Route::get('/minusQuantity/{transactionId}/{productId}', [CartController::class, 'minusQuantity']);
+Route::get('/deleteCart/{transactionId}/{productId}', [CartController::class, 'deleteCart']);
 
 //Payment Method
 Route::get('/paymentMethod', [PaymentMethodController::class, 'paymentMethod'])->name('paymentMethod');

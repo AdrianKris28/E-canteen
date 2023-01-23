@@ -64,6 +64,20 @@ class CartController extends Controller
         return redirect('/cartPage');
     }
 
+    public function deleteCart($transactionId, $productId)
+    {
+        TransactionDetail::where('transactionId', $transactionId)
+            ->where('productId', $productId)
+            ->update([
+                'qty' => 0,
+            ]);
+
+        TransactionDetail::where('transactionId', $transactionId)
+            ->where('productId', $productId)->delete();
+
+        return redirect('/cartPage');
+    }
+
 
     public function cart(Request $req)
     {
