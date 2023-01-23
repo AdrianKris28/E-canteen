@@ -49,7 +49,7 @@
                     </tr> 
                     @empty
                     <tr>
-                        <td id="datanotfound" style="text-align: center">No Transaction Have Occurred</td>
+                        <td id="datanotfound" style="text-align: center">No Transaction Have Occurred Today</td>
                     </tr>
                     @endforelse
             
