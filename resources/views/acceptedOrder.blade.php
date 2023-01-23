@@ -61,9 +61,9 @@
         </form>
         
         @empty
-        <tr>
-            <td id="datanotfound" style="text-align: center">No Transaction Have Occurred</td>
-        </tr>
+        
+           <p style="text-align: center;margin-top: 30px">No Transaction Have Occurred</p>
+       
         @endforelse
 
     @endif

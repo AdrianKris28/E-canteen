@@ -441,7 +441,7 @@ class PageController extends Controller
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->where('transaction.flag', '=', 3)
             ->where('product.sellerId', Auth::user()->id)
-            ->where('transaction.transactionDate', $currentDate)
+            // ->where('transaction.transactionDate', $currentDate)
             ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag'])
             ->orderBy('transaction.updated_at', 'DESC')->get();
 
