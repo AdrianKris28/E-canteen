@@ -60,14 +60,14 @@
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <li class="nav-item nav-li">
+                                    <a class="nav-link" style="color: white" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <li class="nav-item nav-li">
+                                    <a class="nav-link" style="color: white" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -75,7 +75,7 @@
                             {{-- If user == buyer --}}
 
                            
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown nav-li">
 
                                 <a class="dropdown-item" href="/">Home</a>
                                 @if(Auth::user()->role == 'Buyer')
