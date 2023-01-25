@@ -372,7 +372,7 @@ class PageController extends Controller
             ->leftJoin('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('product.sellerId', Auth::user()->id)
-            ->where('transaction.flag', '>', 0)
+            ->where('transaction.flag', '>', 2)
             ->where('transaction.transactionDate', '>=', $req['startdate'])
             ->where('transaction.transactionDate', '<=', $req['enddate'])
             ->groupBy(['product.id', 'product.name', 'product.image'])->get();
@@ -381,7 +381,7 @@ class PageController extends Controller
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('product.sellerId', Auth::user()->id)
-            ->where('transaction.flag', '>', 0)
+            ->where('transaction.flag', '>', 2)
             ->where('transaction.transactionDate', '>=', $req['startdate'])
             ->where('transaction.transactionDate', '<=', $req['enddate'])
             ->value('totalSales');
@@ -401,7 +401,7 @@ class PageController extends Controller
             ->leftJoin('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('product.sellerId', Auth::user()->id)
-            ->where('transaction.flag', '>', 0)
+            ->where('transaction.flag', '>', 2)
             ->where('transaction.transactionDate', $currentDate)
             ->groupBy(['product.id', 'product.name', 'product.image'])->get();
 
@@ -409,7 +409,7 @@ class PageController extends Controller
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
             ->join('transaction', 'transaction.id', '=', 'transactiondetail.transactionId')
             ->where('product.sellerId', Auth::user()->id)
-            ->where('transaction.flag', '>', 0)
+            ->where('transaction.flag', '>', 2)
             ->where('transaction.transactionDate', $currentDate)
             ->value('totalSales');
 
