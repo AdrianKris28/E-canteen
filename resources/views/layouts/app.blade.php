@@ -32,9 +32,9 @@
     @yield('css')
     
 </head>
-<body>
-    <div id="app" style="max-width: 428px">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="padding-top: 54px">
+<body style="max-width: 428px;margin: auto">
+    <div id="app">
+        <nav class="navbar navbar-light shadow-sm" style="padding-top: 54px">
             <div class="container">
             
                     <a class="navbar-brand" href="{{ url('/') }}" style="color: white">
@@ -45,8 +45,8 @@
                         @yield('navbarTitle')
                     </a> --}}
                   
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                <button style="background-color: #EB3B3B;border: 0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1200px-Hamburger_icon_white.svg.png" style="width: 40px;height: 40px;margin-bottom: 5px" alt="Hamburger Menu">
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
