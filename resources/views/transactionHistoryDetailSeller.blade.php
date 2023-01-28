@@ -16,7 +16,7 @@
                     <p>{{$outlet->transactionDate}}</p>
             </div>
         
-            <p>User ID</p>
+            <p>{{$outlet->name}}</p>
             <table class="table">
                     
                 @foreach ($product->where('transactionId', $outlet->id)->where('qty', '!=', null) as $pd)
@@ -43,7 +43,7 @@
 
             <div style="display: flex;justify-content: space-between">
                 <p>Dine In / Take Away</p>
-                <p>Dine In</p>
+                <p>{{$outlet->orderType}}</p>
             </div>
 
             <div style="display: flex;justify-content: space-between">

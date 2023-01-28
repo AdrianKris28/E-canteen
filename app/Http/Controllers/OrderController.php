@@ -10,40 +10,44 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     //
-    public function incomingOrder(){
-        
-        $data = Transaction::select(DB::raw('transaction.id, transaction.buyerId, transaction.flag, transaction.orderType, transaction.tableNumber, transaction.transactionDate, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.updated_at'))
-        ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
-        ->join('product', 'product.id', '=', 'transactiondetail.productId')
-        ->where('transaction.flag', '=', 1)
-        ->where('product.sellerId', Auth::user()->id)
-        ->groupBy(['transaction.id', 'transaction.buyerId', 'transaction.flag', 'transaction.orderType', 'transaction.tableNumber', 'transaction.transactionDate', 'transaction.updated_at'])
-        ->orderBy('transaction.updated_at', 'ASC')->get();
+    public function incomingOrder()
+    {
+
+        $data = Transaction::select(DB::raw('transaction.id, transaction.buyerId, users.name, transaction.flag, transaction.orderType, transaction.tableNumber, transaction.transactionDate, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.updated_at'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('users', 'users.id', '=', 'transaction.buyerId')
+            ->where('transaction.flag', '=', 1)
+            ->where('product.sellerId', Auth::user()->id)
+            ->groupBy(['transaction.id', 'transaction.buyerId', 'users.name', 'transaction.flag', 'transaction.orderType', 'transaction.tableNumber', 'transaction.transactionDate', 'transaction.updated_at'])
+            ->orderBy('transaction.updated_at', 'ASC')->get();
 
         $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactionDetail.qty, product.price'))
-        ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
-        ->join('product', 'product.id', '=', 'transactiondetail.productId')
-        ->where('transaction.flag', '=', 1)
-        ->where('product.sellerId', Auth::user()->id)->get();
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.flag', '=', 1)
+            ->where('product.sellerId', Auth::user()->id)->get();
 
         return view('incomingOrder', compact('data', 'countData'));
     }
 
-    public function acceptedOrder(){
+    public function acceptedOrder()
+    {
 
-        $data = Transaction::select(DB::raw('transaction.id, transaction.buyerId, transaction.flag, transaction.orderType, transaction.tableNumber, transaction.transactionDate, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.updated_at'))
-        ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
-        ->join('product', 'product.id', '=', 'transactiondetail.productId')
-        ->where('transaction.flag', '=', 2)
-        ->where('product.sellerId', Auth::user()->id)
-        ->groupBy(['transaction.id', 'transaction.buyerId', 'transaction.flag', 'transaction.orderType', 'transaction.tableNumber', 'transaction.transactionDate', 'transaction.updated_at'])
-        ->orderBy('transaction.updated_at', 'ASC')->get();
+        $data = Transaction::select(DB::raw('transaction.id, transaction.buyerId, users.name, transaction.flag, transaction.orderType, transaction.tableNumber, transaction.transactionDate, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.updated_at'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->join('users', 'users.id', '=', 'transaction.buyerId')
+            ->where('transaction.flag', '=', 2)
+            ->where('product.sellerId', Auth::user()->id)
+            ->groupBy(['transaction.id', 'transaction.buyerId', 'transaction.flag', 'users.name', 'transaction.orderType', 'transaction.tableNumber', 'transaction.transactionDate', 'transaction.updated_at'])
+            ->orderBy('transaction.updated_at', 'ASC')->get();
 
         $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactionDetail.qty, product.price'))
-        ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
-        ->join('product', 'product.id', '=', 'transactiondetail.productId')
-        ->where('transaction.flag', '=', 2)
-        ->where('product.sellerId', Auth::user()->id)->get();
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.flag', '=', 2)
+            ->where('product.sellerId', Auth::user()->id)->get();
 
         return view('acceptedOrder', compact('data', 'countData'));
     }

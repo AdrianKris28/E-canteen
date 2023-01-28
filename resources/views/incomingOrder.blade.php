@@ -23,7 +23,7 @@
             </div>
 
             <div class="order-header">
-                <h6>Buyer ID &nbsp {{$dt->buyerId}}</h6>
+                <h6>Name : &nbsp {{$dt->name}}</h6>
                 <h6>Table Number: &nbsp {{$dt->tableNumber}}</h6>
             </div>
 
@@ -52,7 +52,7 @@
 
                 <tr>
                     <td colspan="2">Dine In / Take Away</td>
-                    <td>Take Away</td>
+                    <td>{{$dt->orderType}}</td>
                 </tr>
             </table>
 

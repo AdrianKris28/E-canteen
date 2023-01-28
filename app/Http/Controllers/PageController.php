@@ -453,12 +453,12 @@ class PageController extends Controller
 
     public function transactionHistoryDetailSeller($id)
     {
-        $outlet = Transaction::select(DB::raw('transaction.id, transaction.transactionDate,  users.name as storeName, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.flag, transaction.paymentMethod, users.image'))
+        $outlet = Transaction::select(DB::raw('transaction.id, transaction.transactionDate,  users.name, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.flag, transaction.orderType,transaction.paymentMethod, users.image'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
-            ->join('users', 'users.id', '=', 'product.sellerId')
+            ->join('users', 'users.id', '=', 'transaction.buyerId')
             ->where('transaction.id', $id)
-            ->groupBy(['transaction.id', 'transaction.transactionDate', 'users.name', 'users.image', 'transaction.flag', 'transaction.paymentMethod'])->first();
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'users.name', 'users.image', 'transaction.flag', 'transaction.orderType', 'transaction.paymentMethod'])->first();
 
         $product = Product::select(DB::raw('transactiondetail.transactionId, product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image'))
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')
@@ -525,12 +525,12 @@ class PageController extends Controller
 
     public function transactionHistoryDetailBuyer($id)
     {
-        $outlet = Transaction::select(DB::raw('transaction.id, transaction.transactionDate,  users.name as storeName, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.flag, transaction.paymentMethod, users.image'))
+        $outlet = Transaction::select(DB::raw('transaction.id, transaction.transactionDate,  users.name as storeName, SUM(transactiondetail.qty * product.price) as totalHarga, transaction.flag, transaction.orderType, transaction.paymentMethod, users.image'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->join('users', 'users.id', '=', 'product.sellerId')
             ->where('transaction.id', $id)
-            ->groupBy(['transaction.id', 'transaction.transactionDate', 'users.name', 'users.image', 'transaction.flag', 'transaction.paymentMethod'])->first();
+            ->groupBy(['transaction.id', 'transaction.transactionDate', 'users.name', 'users.image', 'transaction.flag', 'transaction.orderType', 'transaction.paymentMethod'])->first();
 
         $product = Product::select(DB::raw('transactiondetail.transactionId, product.id as productId, product.name as productName, product.price, transactiondetail.qty, product.image'))
             ->join('transactiondetail', 'transactiondetail.productId', '=', 'product.id')

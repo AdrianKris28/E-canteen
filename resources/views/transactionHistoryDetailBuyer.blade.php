@@ -61,7 +61,7 @@
 
                 <div style="display: flex;justify-content: space-between">
                     <p>Dine In / Take Away</p>
-                    <p>Dine In</p>
+                    <p>{{$outlet->orderType}}</p>
                 </div>
 
                 <div style="display: flex;justify-content: space-between">
