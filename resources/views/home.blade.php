@@ -5,7 +5,7 @@
 @endsection --}}
 
 @section('css')
-<link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home-seller.css') }}">
 @endsection
 
