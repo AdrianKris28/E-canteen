@@ -22,7 +22,7 @@ class OrderController extends Controller
             ->groupBy(['transaction.id', 'transaction.buyerId', 'users.name', 'transaction.flag', 'transaction.orderType', 'transaction.tableNumber', 'transaction.transactionDate', 'transaction.updated_at'])
             ->orderBy('transaction.updated_at', 'ASC')->get();
 
-        $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactionDetail.qty, product.price'))
+        $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactiondetail.qty, product.price'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->where('transactiondetail.qty', '>', 0)
@@ -44,7 +44,7 @@ class OrderController extends Controller
             ->groupBy(['transaction.id', 'transaction.buyerId', 'transaction.flag', 'users.name', 'transaction.orderType', 'transaction.tableNumber', 'transaction.transactionDate', 'transaction.updated_at'])
             ->orderBy('transaction.updated_at', 'ASC')->get();
 
-        $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactionDetail.qty, product.price'))
+        $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactiondetail.qty, product.price'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
             ->where('transactiondetail.qty', '>', 0)
