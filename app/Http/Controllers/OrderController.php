@@ -25,6 +25,7 @@ class OrderController extends Controller
         $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactionDetail.qty, product.price'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transactiondetail.qty', '>', 0)
             ->where('transaction.flag', '=', 1)
             ->where('product.sellerId', Auth::user()->id)->get();
 
@@ -46,6 +47,7 @@ class OrderController extends Controller
         $countData = Transaction::select(DB::raw('transactiondetail.transactionId, product.id, product.name, transactionDetail.qty, product.price'))
             ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
             ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transactiondetail.qty', '>', 0)
             ->where('transaction.flag', '=', 2)
             ->where('product.sellerId', Auth::user()->id)->get();
 
