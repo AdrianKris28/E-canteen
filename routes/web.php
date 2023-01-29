@@ -88,3 +88,12 @@ Route::post('/acceptOrder', [OrderController::class, 'acceptOrder']);
 //Accepted Order
 Route::get('/acceptedOrder', [OrderController::class, 'acceptedOrder'])->name('acceptedOrder');
 Route::post('/finishDelivery', [OrderController::class, 'finishDelivery']);
+
+
+//Buat bikin symlink waktu hosting
+//harus delete folder storage dulu di public_html
+Route::get('/storage-link', function () {
+    $targetFolder = storage_path('app/public');
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+    symlink($targetFolder, $linkFolder);
+});
