@@ -30,7 +30,7 @@
                     </table>
             </form>
 
-        <a href="/addNewProductSeller" style="margin-left: 210px" class="btn btn-primary" id="new-product-btn">Add New Product</a>
+        <a href="/addNewProductSeller" style="margin-left: 190px" class="btn btn-primary" id="new-product-btn">Add New Product</a>
 
         <table class="table menu-card" style="width: 377px;margin-top: 20px">
 

@@ -34,7 +34,7 @@
 </head>
 <body style="max-width: 428px;margin: auto">
     <div id="app">
-        <nav class="navbar navbar-light shadow-sm" style="padding-top: 54px">
+        <nav class="navbar navbar-light shadow-sm" >
             <div class="container">
             
                     <a class="navbar-brand" href="{{ url('/') }}" style="color: white">
