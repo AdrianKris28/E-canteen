@@ -9,7 +9,7 @@
 <h2 style="text-align: center">Cart</h2>
 
 @forelse ($outlet as $ot)
-    <form class="cart-group" method="POST" action="/checkoutCart">
+    <form class="cart-group" method="POST" action="/checkoutCart" style="width:375px;padding-right:15px;">
         @csrf
 
         <input type="hidden" name="transactionId" value="{{$ot->transactionId}}">

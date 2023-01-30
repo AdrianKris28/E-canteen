@@ -5,7 +5,7 @@ main{
 }
 
 .cart-group{
-    width:  380px;
+    width:  370px;
     /* background-color: #F5F5F5; */
     /* border: 1px solid black; */
     margin-bottom: 45px;
@@ -48,7 +48,7 @@ main{
 
 .cart-group .cart-table .cart-total td{
     font-weight: 400;
-    font-size: 19px;
+    font-size: 17px;
 }
 
 .cart-group .cart-table tr .checkout-btn{
