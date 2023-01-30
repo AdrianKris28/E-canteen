@@ -24,7 +24,7 @@
                         
                                 <table class="table">
                                         
-                                    @foreach ($product->where('transactionId', $outlet->id)->where('qty', '!=', null) as $pd)
+                                    @foreach ($product->where('transactionId', $outlet->id)->where('qty', '!=', 0) as $pd)
                                             
                                         <tr>
                                             <td>

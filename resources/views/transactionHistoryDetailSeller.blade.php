@@ -19,7 +19,7 @@
             <p>{{$outlet->name}}</p>
             <table class="table">
                     
-                @foreach ($product->where('transactionId', $outlet->id)->where('qty', '!=', null) as $pd)
+                @foreach ($product->where('transactionId', $outlet->id)->where('qty', '!=', 0) as $pd)
                     <tr>
                         <td>
                             <img src="{{Storage::url($pd->image)}}" style="width: 75px;height:66px;border-radius: 8px" alt="Gambar">
