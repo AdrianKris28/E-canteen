@@ -152,30 +152,6 @@ class CartController extends Controller
         $quantity = $req['quantity'];
         $productId = $req['productId'];
 
-        // dd($quantity);
-
-        // dd($req);
-
-        // $count = 0;
-
-        // foreach ($req['productId'] as $pd) {
-
-        //     $stock = Product::where('product.id', $pd)->value('stock');
-
-        //     TransactionDetail::where('transactiondetail.productId', $pd)
-        //         ->where('transactiondetail.transactionId', $req['transactionId'])
-        //         ->update([
-        //             'qty' => $req['quantity.' . $count],
-        //         ]);
-
-        //     Product::where('product.id', $pd)
-        //         ->update([
-        //             'stock' => $stock - $req['quantity.' . $count],
-        //         ]);
-
-        //     $count++;
-        // }
-
         $transactionId = $req['transactionId'];
 
         $productDetail = TransactionDetail::join('product', 'product.id', '=', 'transactiondetail.productId')
