@@ -35,7 +35,7 @@
             <label for="quantity"><h5>Quantity:</h5></label>
             <br>
             <button type='button' value='-' class='qtyminus minus btn' field='quantity'>-</button>
-            <input type='number' name="quantity" id="stock" value="{{$qty}}" style="width:50px;text-align: center;border: 0" class='qty' min="1" max="{{$stock}}">
+            <input type='number' name="quantity" id="stock" value="{{$qty}}" style="width:50px;text-align: center;border: 0" class='qty' min="1" max="{{$stock}}" readonly>
             <button type='button' value='+' class='qtyplus plus btn' field='quantity'>+</button>
        
         </div>
