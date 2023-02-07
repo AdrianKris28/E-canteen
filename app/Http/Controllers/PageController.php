@@ -434,6 +434,13 @@ class PageController extends Controller
         //     ->where('transaction.flag', '=', 3)
         //     ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag', 'users.image'])->get();
 
+        $image = Transaction::select(DB::raw('product.image, transaction.id'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.flag', '=', 3)
+            ->where('product.sellerId', Auth::user()->id)->get();
+
+        // dd($image);
 
 
         $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag'))
@@ -445,10 +452,10 @@ class PageController extends Controller
             ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag'])
             ->orderBy('transaction.updated_at', 'DESC')->get();
 
-
+        // dd($data);
 
         // dd($data);
-        return view('transactionHistorySeller', compact('data'));
+        return view('transactionHistorySeller', compact('data', 'image'));
     }
 
     public function transactionHistoryDetailSeller($id)
@@ -493,6 +500,12 @@ class PageController extends Controller
     {
         // dd($data);
 
+        $image = Transaction::select(DB::raw('product.image, transaction.id'))
+            ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
+            ->join('product', 'product.id', '=', 'transactiondetail.productId')
+            ->where('transaction.flag', '=', 3)
+            ->where('product.sellerId', Auth::user()->id)->get();
+
         if (Auth::user()->role == 'Buyer') {
             $data = Transaction::select(DB::raw('SUM(transactiondetail.qty * product.price) as totalHarga, transaction.id, transaction.transactionDate, transaction.flag, users.image'))
                 ->join('transactiondetail', 'transactiondetail.transactionId', '=', 'transaction.id')
@@ -519,7 +532,7 @@ class PageController extends Controller
                 ->groupBy(['transaction.id', 'transaction.transactionDate', 'transaction.flag'])
                 ->orderBy('transaction.updated_at', 'DESC')->get();
 
-            return view('transactionHistorySeller', compact('data'));
+            return view('transactionHistorySeller', compact('data', 'image'));
         }
     }
 

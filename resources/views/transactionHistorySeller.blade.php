@@ -33,7 +33,10 @@
                         
                         <td style="padding-right: 0">
                             <p class="transaction-id">Transaction ID &nbsp {{$dt->id}}</p>
-                            <img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" class="transaction-img" alt="Gambar">
+
+                            @foreach ($image->where('id', $dt->id)->take(1) as $img)
+                            <img src="{{Storage::url($img->image)}}" class="transaction-img" alt="Gambar">
+                            @endforeach
                         </td>
                         <td>
                             <p style="margin-top: 40px" class="transaction-price">
