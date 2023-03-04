@@ -34,4 +34,28 @@ class CreateProductTable extends Migration
     {
         Schema::dropIfExists('product');
     }
+
+    /*
+    Update existing table's column with migration without losing data
+
+    Make new migration file for example "php artisan make:migration add_phone_number_to_users_table"
+
+    class AddPhoneNumberToUsersTable extends Migration
+    {
+     
+        public function up()
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('phone_number')->unique()->after('email');
+            });
+        }
+
+        public function down()
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('phone_number');
+            });
+        }
+    }
+    */
 }
